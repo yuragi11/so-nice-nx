@@ -44,6 +44,20 @@ function AboutPage() {
     <main className="overflow-hidden bg-background text-foreground">
       <Header showCta={false} />
 
+      {/* Hero Image Banner */}
+      <div className="w-full overflow-hidden">
+        <motion.img
+          src="/store-shopping.png"
+          width={1408}
+          height={600}
+          alt="SO NICE NX Store"
+          className="w-full aspect-[21/9] object-cover object-center"
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+        />
+      </div>
+
       <motion.section
         className="relative min-h-[480px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[560px]"
         initial={{ opacity: 0 }}
