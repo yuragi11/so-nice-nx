@@ -88,13 +88,14 @@ function AboutPage() {
             </div>
           </SlideIn>
           <ScaleIn delay={0.2} className="flex-1">
-            <div className="overflow-hidden">
+            <div className="relative w-full">
               <img
                 src="/store-shopping.png"
-                width={912}
-                height={600}
+                width={1200}
+                height={900}
                 alt="SO NICE NX Store"
-                className="aspect-[4/3] w-full object-cover lg:aspect-[3/4]"
+                className="w-full rounded-none"
+                loading="eager"
               />
             </div>
           </ScaleIn>
