@@ -44,19 +44,62 @@ function AboutPage() {
     <main className="overflow-hidden bg-background text-foreground">
       <Header showCta={false} />
 
-      {/* Hero Image Banner */}
-      <div className="w-full overflow-hidden">
-        <motion.img
-          src="/store-shopping.png"
-          width={1408}
-          height={600}
-          alt="SO NICE NX Store"
-          className="w-full aspect-[21/9] object-cover object-center"
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-        />
-      </div>
+      {/* Hero — Image Right, Text Left */}
+      <section className="relative min-h-[500px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[600px]">
+        <div className="absolute inset-0 bg-hero-wash" />
+        <div className="relative mx-auto flex min-h-[500px] max-w-[1520px] flex-col items-center justify-center gap-10 px-5 py-20 lg:flex-row lg:px-10 lg:py-0">
+          <SlideIn direction="right">
+            <div className="flex-1">
+              <p className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary">
+                <span className="h-px w-10 bg-primary" />
+                Our story
+              </p>
+              <motion.h1
+                className="max-w-[600px] font-display text-5xl leading-[0.88] font-black uppercase tracking-normal sm:text-6xl lg:text-7xl"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.3,
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+                }}
+              >
+                A decade of
+                <br />
+                <span className="text-primary">family style.</span>
+              </motion.h1>
+              <motion.p
+                className="mt-6 max-w-md text-base leading-relaxed text-hero-foreground/75"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+              >
+                From a small dream to Sausar&apos;s most trusted family showroom — our journey is woven with passion, quality, and care.
+              </motion.p>
+              <motion.div
+                className="mt-8 flex flex-wrap gap-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+              >
+                <a href="/collections" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground transition-colors hover:bg-primary/90">Explore Collection <ArrowDownRight size={16} /></a>
+                <a href="/store" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] border border-hero-foreground/40 text-hero-foreground hover:bg-hero-foreground/10">Visit Store</a>
+              </motion.div>
+            </div>
+          </SlideIn>
+          <ScaleIn delay={0.2} className="flex-1">
+            <div className="overflow-hidden">
+              <img
+                src="/store-shopping.png"
+                width={912}
+                height={600}
+                alt="SO NICE NX Store"
+                className="aspect-[4/3] w-full object-cover lg:aspect-[3/4]"
+              />
+            </div>
+          </ScaleIn>
+        </div>
+      </section>
 
       <motion.section
         className="relative min-h-[480px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[560px]"
