@@ -16,6 +16,7 @@ import { Header, Footer, SectionTitle } from "@/components/SiteNav";
 import { SectionReveal, FadeIn, ScaleIn, SlideIn } from "@/components/AnimationWrapper";
 import { storeInfo, contactInfo } from "@/data/collections";
 import { companyInfo } from "@/data/company";
+import contactHero from "@/assets/contact-hero.jpg";
 
 export const Route = createFileRoute("/contact/")({
   head: () => ({
@@ -100,7 +101,7 @@ function ContactPage() {
           <ScaleIn delay={0.2} className="flex-1">
             <div className="relative w-full">
               <img
-                src="/contact-hero.jpg"
+                src={contactHero}
                 width={1200}
                 height={900}
                 alt="SO NICE NX Contact"
