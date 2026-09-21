@@ -16,6 +16,7 @@ import { Header, Footer, SectionTitle } from "@/components/SiteNav";
 import { SectionReveal, FadeIn, ScaleIn, SlideIn } from "@/components/AnimationWrapper";
 import { storeInfo } from "@/data/collections";
 import { companyInfo } from "@/data/company";
+import storeHero from "@/assets/family-campaign.jpg";
 
 export const Route = createFileRoute("/store/")({
   head: () => ({
@@ -43,48 +44,63 @@ function StorePage() {
     <main className="overflow-hidden bg-background text-foreground">
       <Header showCta={false} />
 
-      <motion.section
-        className="relative min-h-[480px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[560px]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
+      {/* Hero — Image Right, Text Left */}
+      <section className="relative min-h-[500px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[600px]">
         <div className="absolute inset-0 bg-hero-wash" />
-        <div className="relative mx-auto flex min-h-[480px] max-w-[1520px] flex-col justify-center px-5 lg:px-10">
-          <motion.p
-            className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <span className="h-px w-10 bg-primary" />
-            Plan your visit
-          </motion.p>
-          <motion.h1
-            className="max-w-[800px] font-display text-5xl leading-[0.88] font-black uppercase tracking-normal sm:text-7xl lg:text-[7rem]"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.5,
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-            }}
-          >
-            Come find
-            <br />
-            <span className="text-primary">your style.</span>
-          </motion.h1>
-          <motion.p
-            className="mt-6 max-w-lg text-base leading-relaxed text-hero-foreground/75"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-          >
-            A welcoming family showroom in Sausar — open 7 days a week with styling experts ready to
-            help.
-          </motion.p>
+        <div className="relative mx-auto flex min-h-[500px] max-w-[1520px] flex-col items-center justify-center gap-10 px-5 py-20 lg:flex-row lg:px-10 lg:py-0">
+          <SlideIn direction="right">
+            <div className="flex-1">
+              <p className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary">
+                <span className="h-px w-10 bg-primary" />
+                Plan your visit
+              </p>
+              <motion.h1
+                className="max-w-[600px] font-display text-5xl leading-[0.88] font-black uppercase tracking-normal sm:text-6xl lg:text-7xl"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.3,
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+                }}
+              >
+                Come find
+                <br />
+                <span className="text-primary">your style.</span>
+              </motion.h1>
+              <motion.p
+                className="mt-6 max-w-md text-base leading-relaxed text-hero-foreground/75"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+              >
+                A welcoming family showroom in Sausar — open 7 days a week with styling experts ready to help.
+              </motion.p>
+              <motion.div
+                className="mt-8 flex flex-wrap gap-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+              >
+                <Link to="/collections" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground transition-colors hover:bg-primary/90">Explore Collection <ArrowDownRight size={16} /></Link>
+                <Link to="/contact" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] border border-hero-foreground/40 text-hero-foreground hover:bg-hero-foreground/10">Contact Us <ChevronRight size={16} /></Link>
+              </motion.div>
+            </div>
+          </SlideIn>
+          <ScaleIn delay={0.2} className="flex-1">
+            <div className="relative w-full">
+              <img
+                src={storeHero}
+                width={1200}
+                height={900}
+                alt="SO NICE NX Store"
+                className="w-full"
+                loading="eager"
+              />
+            </div>
+          </ScaleIn>
         </div>
-      </motion.section>
+      </section>
 
       <SectionReveal direction="up">
         <section className="border-b border-foreground/15 py-20 md:py-28">
