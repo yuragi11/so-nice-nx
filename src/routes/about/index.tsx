@@ -5,7 +5,6 @@ import {
   ArrowUpRight,
   Building2,
   Gem,
-  MapPin,
   Quote,
   Target,
   Users,
@@ -318,13 +317,15 @@ function AboutPage() {
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-[1520px] px-5 lg:px-10">
             <SectionTitle kicker="03 / Assignment">Frontend Development Assignment.</SectionTitle>
-            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-1">
               <ScaleIn>
                 <div className="border border-foreground/15 p-6 md:p-8">
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
                     Project Details
                   </p>
-                  <h3 className="mt-3 font-display text-2xl font-black">{companyInfo.project}</h3>
+                  <h3 className="mt-3 font-display text-2xl font-black">
+                    {companyInfo.project}
+                  </h3>
                   <div className="mt-6 space-y-4">
                     {[
                       ["Assigned To", companyInfo.assignedTo],
@@ -346,27 +347,6 @@ function AboutPage() {
                   </div>
                 </div>
               </ScaleIn>
-              <SlideIn direction="left">
-                <div className="border border-foreground/15 p-6 md:p-8">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                    Location
-                  </p>
-                  <h3 className="mt-3 font-display text-2xl font-black">
-                    {companyInfo.brandPositioning}
-                  </h3>
-                  <div className="mt-6 space-y-4">
-                    <div className="flex items-start gap-3">
-                      <MapPin size={20} className="mt-1 text-primary" />
-                      <div>
-                        <p className="font-bold">{companyInfo.location}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {companyInfo.alternateLandmark}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SlideIn>
             </div>
           </div>
         </section>
