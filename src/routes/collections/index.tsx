@@ -46,7 +46,7 @@ function PageHero({ title, subtitle }: { title: string; subtitle: string }) {
         className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
       />
       <div className="absolute inset-0 bg-hero-wash" />
-      <div className="relative mx-auto flex min-h-[480px] max-w-[1520px] flex-col justify-center px-5 lg:px-10">
+      <div className="relative mx-auto flex min-h-[480px] max-w-[1520px] flex-col justify-center px-5 pb-14 pt-32 lg:px-10 lg:pb-20 lg:pt-36">
         <motion.p
           className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
           initial={{ opacity: 0, y: 20 }}

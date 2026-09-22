@@ -47,7 +47,7 @@ function StorePage() {
       {/* Hero — Image Right, Text Left */}
       <section className="relative min-h-[500px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[600px]">
         <div className="absolute inset-0 bg-hero-wash" />
-        <div className="relative mx-auto flex min-h-[500px] max-w-[1520px] flex-col items-center justify-center gap-10 px-5 py-20 lg:flex-row lg:px-10 lg:py-0">
+        <div className="relative mx-auto flex min-h-[500px] max-w-[1520px] flex-col items-center justify-center gap-10 px-5 py-20 lg:flex-row lg:px-10 lg:py-0 lg:pt-36">
           <SlideIn direction="right">
             <div className="flex-1">
               <p className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary">
