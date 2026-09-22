@@ -124,68 +124,70 @@ export function Header({
       </div>
       <AnimatePresence>
         {open && (
-          <>
-            <motion.div
-              className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={closeMenu}
-              aria-hidden="true"
-            />
+          <motion.div
+            key="mobile-menu"
+            className="fixed inset-0 z-40 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={closeMenu}
+            aria-hidden="true"
+          >
+            <div className="absolute inset-0 bg-black/50" />
             <motion.nav
-              className="fixed inset-x-0 top-20 z-50 border-t bg-hero text-hero-foreground lg:hidden"
+              className="fixed inset-x-0 top-20 z-50 overflow-hidden border-t bg-hero text-hero-foreground"
               aria-label="Mobile navigation"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0, y: -20, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
+              exit={{ opacity: 0, y: -20, height: 0 }}
               transition={{ duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
             >
-            {links.map((link, index) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={closeMenu}
-                className={`flex items-center justify-between border-b py-5 font-display text-3xl font-black ${isDark ? "border-hero-foreground/15 text-hero-foreground" : "border-foreground/15 text-foreground"}`}
-              >
-                <span>{link.label}</span>
-                <span className="flex items-center gap-3">
-                  <span className="font-sans text-xs text-primary">0{index + 1}</span>
-                  <ArrowUpRight size={20} className="text-primary" />
-                </span>
-              </a>
-            ))}
-            <div className="border-t px-5 py-6">
-              <div className="flex flex-col gap-4">
+              {links.map((link, index) => (
                 <a
-                  href={`tel:${storeInfo.phone.replace(/\s/g, "")}`}
-                  className="flex items-center gap-3 text-sm font-bold"
+                  key={link.label}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className="flex items-center justify-between border-b py-5 font-display text-3xl font-black"
                 >
-                  <Phone size={16} className="text-primary" />
-                  {storeInfo.phone}
+                  <span>{link.label}</span>
+                  <span className="flex items-center gap-3">
+                    <span className="font-sans text-xs text-primary">0{index + 1}</span>
+                    <ArrowUpRight size={20} className="text-primary" />
+                  </span>
                 </a>
-                <a
-                  href={`https://wa.me/${storeInfo.whatsapp.replace(/\s/g, "")}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 text-sm font-bold"
-                >
-                  <MessageCircle size={16} className="text-primary" />
-                  {storeInfo.whatsapp}
-                </a>
-                <a
-                  href={`mailto:${storeInfo.email}`}
-                  className="flex items-center gap-3 text-sm font-bold"
-                >
-                  <Mail size={16} className="text-primary" />
-                  {storeInfo.email}
-                </a>
+              ))}
+              <div className="border-t px-5 py-6">
+                <div className="flex flex-col gap-4">
+                  <a
+                    href={`tel:${storeInfo.phone.replace(/\s/g, "")}`}
+                    className="flex items-center gap-3 text-sm font-bold"
+                  >
+                    <Phone size={16} className="text-primary" />
+                    {storeInfo.phone}
+                  </a>
+                  <a
+                    href={`https://wa.me/${storeInfo.whatsapp.replace(/\s/g, "")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-3 text-sm font-bold"
+                  >
+                    <MessageCircle size={16} className="text-primary" />
+                    {storeInfo.whatsapp}
+                  </a>
+                  <a
+                    href={`mailto:${storeInfo.email}`}
+                    className="flex items-center gap-3 text-sm font-bold"
+                  >
+                    <Mail size={16} className="text-primary" />
+                    {storeInfo.email}
+                  </a>
+                </div>
               </div>
-            </div>
-          </motion.nav>
-        </>
-      )}
+            </motion.nav>
+          </motion.div>
+        )}
       </AnimatePresence>
     </header>
   );
