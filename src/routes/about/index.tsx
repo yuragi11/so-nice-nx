@@ -16,6 +16,7 @@ import {
 import { Header, Footer, SectionTitle } from "@/components/SiteNav";
 import { SectionReveal, FadeIn, ScaleIn, SlideIn } from "@/components/AnimationWrapper";
 import { companyInfo } from "@/data/company";
+import heroImg from "@/assets/showroom.jpg";
 
 export const Route = createFileRoute("/about/")({
   head: () => ({
@@ -46,7 +47,7 @@ function AboutPage() {
       {/* Hero — Image Background with Text Overlay */}
       <section className="relative min-h-[600px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[700px]">
         <img
-          src="/store-shopping.png"
+          src={heroImg}
           width={1600}
           height={900}
           alt="SO NICE NX Store"
@@ -271,29 +272,25 @@ function AboutPage() {
       </motion.section>
 
       <SectionReveal direction="up">
-        <section className="relative min-h-[520px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[600px]">
-          <div className="absolute inset-0 bg-hero-wash" />
-          <div className="relative mx-auto flex min-h-[520px] max-w-[1520px] flex-col items-start justify-center px-5 py-12 lg:px-10">
-            <Quote size={36} className="text-primary" />
-            <motion.blockquote
-              className="mt-6 max-w-3xl font-display text-3xl leading-[1.15] font-black uppercase sm:text-5xl"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              "Fashion is not about clothes — it's about the person wearing them. At SO NICE NX, we
-              dress every chapter of your life."
-            </motion.blockquote>
-            <div className="mt-8 flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center border border-hero-foreground/30 font-display text-lg font-black">
-                FN
-              </div>
-              <div>
-                <p className="font-display text-lg font-black">Founder & CEO</p>
-                <p className="text-xs uppercase tracking-[0.14em] text-hero-foreground/60">
-                  {companyInfo.company}
-                </p>
+        <section className="py-20 md:py-28">
+          <div className="relative mx-auto flex min-h-[400px] max-w-[1520px] flex-col items-start justify-center gap-8 px-5 lg:flex-row lg:items-center lg:px-10">
+            <Quote size={36} className="text-primary shrink-0" />
+            <div>
+              <motion.blockquote
+                className="max-w-3xl font-display text-3xl leading-[1.15] font-black uppercase sm:text-5xl"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                "Fashion is not about clothes — it's about the person wearing them. At SO NICE NX, we dress every chapter of your life."
+              </motion.blockquote>
+              <div className="mt-8 flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center border border-foreground/20 font-display text-lg font-black">FN</div>
+                <div>
+                  <p className="font-display text-lg font-black">Founder & CEO</p>
+                  <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{companyInfo.company}</p>
+                </div>
               </div>
             </div>
           </div>
