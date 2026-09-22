@@ -6,9 +6,10 @@ type AppButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 };
 
 const tones = {
-  signal: "bg-primary text-primary-foreground hover:bg-primary/90",
+  signal: "bg-[--cta-gradient] text-primary-foreground hover:brightness-110",
   light: "bg-background text-foreground hover:bg-background/90",
   outline: "border border-current text-current hover:bg-foreground/10",
+  gradient: "bg-[--cta-gradient] text-primary-foreground hover:brightness-110",
 };
 
 export function AppButton({ children, className = "", tone = "signal", ...props }: AppButtonProps) {
