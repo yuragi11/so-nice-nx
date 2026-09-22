@@ -55,6 +55,12 @@
     oklch(0.12 0.03 342 / 68%) 42%,
     oklch(0.12 0.03 342 / 8%) 78%
   );
+  --hero-overlay: linear-gradient(
+    0deg,
+    oklch(0.12 0.03 342 / 95%) 0%,
+    oklch(0.12 0.03 342 / 70%) 50%,
+    oklch(0.12 0.03 342 / 20%) 100%
+  );
   --image-shade: linear-gradient(0deg, oklch(0.1 0.03 342 / 85%) 0%, transparent 58%);
   --campaign-shade: linear-gradient(
     90deg,

@@ -52,7 +52,7 @@ function AboutPage() {
           alt="SO NICE NX Store"
           className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
         />
-        <div className="absolute inset-0 bg-hero-wash" />
+        <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto flex min-h-[600px] max-w-[1520px] flex-col justify-end px-5 pb-14 pt-32 lg:min-h-[700px] lg:px-10 lg:pb-20">
           <motion.p
             className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
