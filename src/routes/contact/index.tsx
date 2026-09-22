@@ -164,6 +164,7 @@ function ContactPage() {
                     <input
                       id="phone"
                       name="phone"
+                      required
                       type="tel"
                       placeholder="+91 XXXXX XXXXX"
                       className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
