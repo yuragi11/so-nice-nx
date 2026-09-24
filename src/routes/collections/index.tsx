@@ -37,18 +37,22 @@ export const Route = createFileRoute("/collections/")({
 
 function PageHero({ title, subtitle }: { title: string; subtitle: string }) {
   return (
-    <section className="relative min-h-[480px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[560px]">
+    <section className="relative min-h-[440px] sm:min-h-[520px] lg:min-h-[580px] w-full overflow-hidden bg-hero text-hero-foreground pt-20">
+      {/* Background Image with top-aligned focal point so navbar never hides models */}
       <img
         src={heroImage}
         width={1920}
         height={1080}
         alt="SO NICE NX fashion"
-        className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
+        className="absolute inset-0 h-full w-full object-cover object-[center_top] opacity-85"
       />
-      <div className="absolute inset-0 bg-hero-wash" />
-      <div className="relative mx-auto flex min-h-[480px] max-w-[1520px] flex-col justify-center px-5 pb-14 pt-32 lg:px-10 lg:pb-20 lg:pt-36">
+      {/* Visual Overlay */}
+      <div className="absolute inset-0 bg-hero-wash pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-hero via-hero/50 to-transparent pointer-events-none" />
+
+      <div className="relative mx-auto flex min-h-[360px] sm:min-h-[440px] lg:min-h-[500px] max-w-[1520px] flex-col justify-end px-4 sm:px-6 lg:px-10 pb-10 sm:pb-14 lg:pb-16 pt-8 sm:pt-12">
         <motion.p
-          className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
+          className="mb-3 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -57,7 +61,7 @@ function PageHero({ title, subtitle }: { title: string; subtitle: string }) {
           Curated for you
         </motion.p>
         <motion.h1
-          className="max-w-[800px] font-display text-5xl leading-[0.88] font-black uppercase tracking-normal sm:text-7xl lg:text-[7rem]"
+          className="max-w-[800px] font-display text-4xl sm:text-6xl md:text-7xl lg:text-[7rem] leading-[0.9] sm:leading-[0.88] font-black uppercase tracking-normal"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -69,7 +73,7 @@ function PageHero({ title, subtitle }: { title: string; subtitle: string }) {
           {title}
         </motion.h1>
         <motion.p
-          className="mt-6 max-w-lg text-base leading-relaxed text-hero-foreground/75"
+          className="mt-4 sm:mt-6 max-w-lg text-sm sm:text-base leading-relaxed text-hero-foreground/80"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
@@ -91,7 +95,7 @@ function CollectionCard({ item, index }: { item: (typeof collections)[0]; index:
           height={1200}
           loading="lazy"
           alt={`${item.name} collection`}
-          className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="aspect-[3/4] w-full object-cover object-[center_top] transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-image-shade" />
         <span className="absolute left-4 top-4 text-xs font-bold text-hero-foreground/70">
@@ -160,18 +164,18 @@ function CollectionsPage() {
                 <ScaleIn
                   key={item.name}
                   delay={index * 0.1}
-                  className="group grid grid-cols-2 gap-px bg-foreground/20"
+                  className="group grid grid-cols-1 sm:grid-cols-2 gap-px bg-foreground/20 overflow-hidden"
                 >
-                  <div className="relative overflow-hidden bg-hero">
+                  <div className="relative overflow-hidden bg-hero min-h-[280px] sm:min-h-[360px]">
                     <img
                       src={item.image}
                       width={912}
                       height={1200}
                       loading="lazy"
                       alt={`${item.name} collection`}
-                      className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="aspect-[3/4] h-full w-full object-cover object-[center_top] transition-transform duration-700 group-hover:scale-105"
                     />
-                    <span className="absolute left-4 top-4 font-display text-6xl font-black text-hero-foreground/20">
+                    <span className="absolute left-4 top-4 font-display text-5xl sm:text-6xl font-black text-hero-foreground/20">
                       {item.number}
                     </span>
                   </div>

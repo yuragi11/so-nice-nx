@@ -44,18 +44,18 @@ function AboutPage() {
       <Header showCta={false} />
 
       {/* Hero — Image Background with Text Overlay */}
-      <section className="relative min-h-[600px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[700px]">
+      <section className="relative min-h-[520px] sm:min-h-[600px] lg:min-h-[700px] w-full overflow-hidden bg-hero text-hero-foreground pt-20">
         <img
           src={heroImg}
           width={1600}
           height={900}
           alt="SO NICE NX Store"
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
+          className="absolute inset-0 h-full w-full object-cover object-[center_top] sm:object-center opacity-80"
         />
-        <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="relative mx-auto flex min-h-[600px] max-w-[1520px] flex-col justify-end px-5 pb-14 pt-32 lg:min-h-[700px] lg:px-10 lg:pb-20">
+        <div className="absolute inset-0 bg-hero-overlay pointer-events-none" />
+        <div className="relative mx-auto flex min-h-[440px] sm:min-h-[520px] lg:min-h-[620px] max-w-[1520px] flex-col justify-end px-4 sm:px-6 lg:px-10 pb-10 sm:pb-14 lg:pb-20 pt-8 sm:pt-12">
           <motion.p
-            className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
+            className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -64,7 +64,7 @@ function AboutPage() {
             Our story
           </motion.p>
           <motion.h1
-            className="max-w-[850px] font-display text-6xl leading-[0.84] font-black uppercase tracking-normal sm:text-8xl lg:text-[8.6rem]"
+            className="max-w-[850px] font-display text-4xl sm:text-6xl md:text-7xl lg:text-[8.5rem] leading-[0.9] sm:leading-[0.84] font-black uppercase tracking-normal"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
@@ -78,11 +78,11 @@ function AboutPage() {
             transition={{ delay: 0.7, duration: 0.6 }}
           >
             <div className="max-w-md">
-              <p className="text-base leading-relaxed text-hero-foreground/75">From a small dream to Sausar&apos;s most trusted family showroom — our journey is woven with passion, quality, and care.</p>
+              <p className="text-sm sm:text-base leading-relaxed text-hero-foreground/75">From a small dream to Sausar&apos;s most trusted family showroom — our journey is woven with passion, quality, and care.</p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <a href="/collections" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground transition-colors hover:bg-primary/90">Explore Collection <ArrowDownRight size={16} /></a>
-              <a href="/store" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] border border-hero-foreground/40 text-hero-foreground hover:bg-hero-foreground/10">Visit Store</a>
+              <Link to="/collections" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground transition-colors hover:bg-primary/90">Explore Collection <ArrowDownRight size={16} /></Link>
+              <Link to="/store" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] border border-hero-foreground/40 text-hero-foreground hover:bg-hero-foreground/10">Visit Store</Link>
             </div>
           </motion.div>
         </div>

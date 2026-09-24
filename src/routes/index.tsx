@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -11,6 +11,8 @@ import {
   X,
   Send,
   CheckCircle2,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { Header, Footer, SectionTitle } from "@/components/SiteNav";
 import { SectionReveal, FadeIn, ScaleIn, SlideIn } from "@/components/AnimationWrapper";
@@ -49,45 +51,52 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-function HeaderWithAnimation() {
-  return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-    >
-      <Header />
-    </motion.header>
-  );
-}
-
 function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay handled safely according to browser policies
+      });
+    }
+  }, []);
+
+  const toggleSound = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
   return (
     <SectionReveal direction="up">
       <section
         id="home"
-        className="relative min-h-[760px] bg-hero text-hero-foreground lg:min-h-screen"
+        className="relative min-h-[720px] min-h-[100svh] w-full overflow-hidden bg-hero text-hero-foreground pt-20 lg:min-h-screen"
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          disablePictureInPicture
-          preload="metadata"
-          poster={heroImage}
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-90"
-          aria-label="SO NICE NX promotional video"
-        >
-          <source src="/video/so-nice-hero.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-hero-wash" />
-        <div className="absolute right-0 top-28 hidden border-y border-hero-foreground/25 bg-hero/50 px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] text-primary backdrop-blur-sm md:block">
+        {/* Original Hero Background Image with clear top framing */}
+        <img
+          src={heroImage}
+          alt="SO NICE NX showroom"
+          width={1600}
+          height={1008}
+          className="absolute inset-0 h-full w-full object-cover object-[center_top] sm:object-center opacity-90"
+        />
+
+        {/* Brand visual overlay */}
+        <div className="absolute inset-0 bg-hero-wash pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-hero via-hero/45 to-transparent pointer-events-none" />
+
+        {/* Top Location Badge */}
+        <div className="absolute right-6 top-24 z-10 hidden border border-hero-foreground/25 bg-hero/60 px-5 py-2 text-xs font-bold uppercase tracking-[0.22em] text-primary backdrop-blur-sm md:block">
           {companyInfo.location.split(",")[0]} · {companyInfo.location.split(",")[1]?.trim()}
         </div>
-        <div className="relative mx-auto flex min-h-[760px] max-w-[1520px] flex-col justify-end px-5 pb-14 pt-32 lg:min-h-screen lg:px-10 lg:pb-20">
+
+        <div className="relative mx-auto flex min-h-[calc(100svh-5rem)] max-w-[1520px] flex-col justify-end px-4 sm:px-6 lg:px-10 pb-10 sm:pb-14 lg:pb-16 pt-8 sm:pt-12">
           <motion.p
-            className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
+            className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -96,7 +105,7 @@ function HeroSection() {
             The family wear showroom
           </motion.p>
           <motion.h1
-            className="max-w-[850px] font-display text-6xl leading-[0.84] font-black uppercase tracking-normal sm:text-8xl lg:text-[8.6rem]"
+            className="max-w-[850px] font-display text-4xl sm:text-6xl md:text-7xl lg:text-[8.5rem] leading-[0.9] sm:leading-[0.84] font-black uppercase tracking-normal"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -109,34 +118,83 @@ function HeroSection() {
             <br />
             <span className="text-primary">in the family.</span>
           </motion.h1>
+
           <motion.div
-            className="mt-8 flex flex-col gap-6 border-t border-hero-foreground/25 pt-6 sm:flex-row sm:items-end sm:justify-between"
+            className="mt-8 grid grid-cols-1 gap-8 border-t border-hero-foreground/25 pt-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
           >
-            <div className="max-w-md">
-              <p className="text-base leading-relaxed text-hero-foreground/75">
-                {companyInfo.brandMessage}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-hero-foreground/55">
-                Over a decade of serving Sausar families with curated fashion — from everyday
-                essentials to celebration wear.
-              </p>
+            <div className="flex flex-col justify-between gap-6">
+              <div className="max-w-xl">
+                <p className="text-base leading-relaxed text-hero-foreground/75">
+                  {companyInfo.brandMessage}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-hero-foreground/55">
+                  Over a decade of serving Sausar families with curated fashion — from everyday
+                  essentials to celebration wear.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/collections"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                  Explore the edit <ArrowDownRight size={16} />
+                </Link>
+                <Link
+                  to="/store"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] border border-hero-foreground/40 text-hero-foreground hover:bg-hero-foreground/10"
+                >
+                  Find us
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to="/collections"
-                className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
-              >
-                Explore the edit <ArrowDownRight size={16} />
-              </Link>
-              <Link
-                to="/store"
-                className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] border border-hero-foreground/40 text-hero-foreground hover:bg-hero-foreground/10"
-              >
-                Find us
-              </Link>
+
+            {/* Small Corner Video Section */}
+            <div className="flex justify-start lg:justify-end">
+              <div className="group relative w-full max-w-[340px] overflow-hidden border border-hero-foreground/30 bg-hero/75 p-2.5 backdrop-blur-md shadow-2xl">
+                <div className="mb-2 flex items-center justify-between px-1">
+                  <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Showroom Tour
+                  </span>
+                  <button
+                    type="button"
+                    onClick={toggleSound}
+                    aria-label={isMuted ? "Unmute video sound" : "Mute video sound"}
+                    className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-hero-foreground/80 transition-colors hover:text-primary"
+                  >
+                    {isMuted ? (
+                      <>
+                        <VolumeX size={13} />
+                        <span>Sound Off</span>
+                      </>
+                    ) : (
+                      <>
+                        <Volume2 size={13} className="text-primary" />
+                        <span className="text-primary font-bold">Sound On</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+                <div className="relative aspect-video w-full overflow-hidden bg-black">
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    disablePictureInPicture
+                    preload="metadata"
+                    poster={heroImage}
+                    className="h-full w-full object-cover object-center"
+                    aria-label="SO NICE NX showroom video tour"
+                  >
+                    <source src="/video/so-nice-hero.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -646,7 +704,7 @@ function CompanyFooter() {
 function HomePage() {
   return (
     <main className="overflow-hidden bg-background text-foreground">
-      <HeaderWithAnimation />
+      <Header />
       <HeroSection />
       <AboutSection />
       <CollectionsSection />
