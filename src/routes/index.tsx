@@ -51,18 +51,6 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-function HeaderWithAnimation() {
-  return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-    >
-      <Header />
-    </motion.header>
-  );
-}
-
 function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
@@ -86,29 +74,29 @@ function HeroSection() {
     <SectionReveal direction="up">
       <section
         id="home"
-        className="relative min-h-[760px] min-h-[100svh] w-full overflow-hidden bg-hero text-hero-foreground lg:min-h-screen"
+        className="relative min-h-[720px] min-h-[100svh] w-full overflow-hidden bg-hero text-hero-foreground pt-20 lg:min-h-screen"
       >
-        {/* Original Hero Background Image */}
+        {/* Original Hero Background Image with clear top framing */}
         <img
           src={heroImage}
           alt="SO NICE NX showroom"
           width={1600}
           height={1008}
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-[center_top] sm:object-center opacity-90"
         />
 
         {/* Brand visual overlay */}
         <div className="absolute inset-0 bg-hero-wash pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-hero/95 via-hero/45 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-hero via-hero/45 to-transparent pointer-events-none" />
 
         {/* Top Location Badge */}
-        <div className="absolute right-4 top-28 z-10 hidden border border-hero-foreground/25 bg-hero/50 px-6 py-2 text-xs font-bold uppercase tracking-[0.22em] text-primary backdrop-blur-sm md:block">
+        <div className="absolute right-6 top-24 z-10 hidden border border-hero-foreground/25 bg-hero/60 px-5 py-2 text-xs font-bold uppercase tracking-[0.22em] text-primary backdrop-blur-sm md:block">
           {companyInfo.location.split(",")[0]} · {companyInfo.location.split(",")[1]?.trim()}
         </div>
 
-        <div className="relative mx-auto flex min-h-[760px] max-w-[1520px] flex-col justify-end px-5 pb-12 pt-32 lg:min-h-screen lg:px-10 lg:pb-16">
+        <div className="relative mx-auto flex min-h-[calc(100svh-5rem)] max-w-[1520px] flex-col justify-end px-4 sm:px-6 lg:px-10 pb-10 sm:pb-14 lg:pb-16 pt-8 sm:pt-12">
           <motion.p
-            className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
+            className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -117,7 +105,7 @@ function HeroSection() {
             The family wear showroom
           </motion.p>
           <motion.h1
-            className="max-w-[850px] font-display text-6xl leading-[0.84] font-black uppercase tracking-normal sm:text-8xl lg:text-[8.6rem]"
+            className="max-w-[850px] font-display text-4xl sm:text-6xl md:text-7xl lg:text-[8.5rem] leading-[0.9] sm:leading-[0.84] font-black uppercase tracking-normal"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -716,7 +704,7 @@ function CompanyFooter() {
 function HomePage() {
   return (
     <main className="overflow-hidden bg-background text-foreground">
-      <HeaderWithAnimation />
+      <Header />
       <HeroSection />
       <AboutSection />
       <CollectionsSection />
