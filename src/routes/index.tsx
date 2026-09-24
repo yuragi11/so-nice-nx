@@ -11,6 +11,8 @@ import {
   X,
   Send,
   CheckCircle2,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { Header, Footer, SectionTitle } from "@/components/SiteNav";
 import { SectionReveal, FadeIn, ScaleIn, SlideIn } from "@/components/AnimationWrapper";
@@ -63,6 +65,7 @@ function HeaderWithAnimation() {
 
 function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -71,6 +74,13 @@ function HeroSection() {
       });
     }
   }, []);
+
+  const toggleSound = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   return (
     <SectionReveal direction="up">
@@ -106,9 +116,32 @@ function HeroSection() {
         {/* Brand visual overlays for high text contrast and editorial mood */}
         <div className="absolute inset-0 bg-hero-wash pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-hero/90 via-hero/40 to-transparent pointer-events-none" />
-        <div className="absolute right-0 top-28 hidden border-y border-hero-foreground/25 bg-hero/50 px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] text-primary backdrop-blur-sm md:block">
-          {companyInfo.location.split(",")[0]} · {companyInfo.location.split(",")[1]?.trim()}
+
+        {/* Top Badges & Audio Control */}
+        <div className="absolute right-4 top-28 z-10 flex items-center gap-2 sm:right-6 lg:right-10">
+          <button
+            type="button"
+            onClick={toggleSound}
+            aria-label={isMuted ? "Unmute video sound" : "Mute video sound"}
+            className="inline-flex items-center gap-2 border border-hero-foreground/30 bg-hero/65 px-3.5 py-2 text-xs font-bold uppercase tracking-[0.16em] text-primary backdrop-blur-md transition-colors hover:bg-hero hover:border-primary"
+          >
+            {isMuted ? (
+              <>
+                <VolumeX size={15} />
+                <span className="hidden sm:inline">Sound Off</span>
+              </>
+            ) : (
+              <>
+                <Volume2 size={15} />
+                <span className="hidden sm:inline">Sound On</span>
+              </>
+            )}
+          </button>
+          <div className="hidden border border-hero-foreground/25 bg-hero/50 px-6 py-2 text-xs font-bold uppercase tracking-[0.22em] text-primary backdrop-blur-sm md:block">
+            {companyInfo.location.split(",")[0]} · {companyInfo.location.split(",")[1]?.trim()}
+          </div>
         </div>
+
         <div className="relative mx-auto flex min-h-[760px] max-w-[1520px] flex-col justify-end px-5 pb-14 pt-32 lg:min-h-screen lg:px-10 lg:pb-20">
           <motion.p
             className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
