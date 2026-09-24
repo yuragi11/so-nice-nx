@@ -151,19 +151,19 @@ function HeroSection() {
               </div>
             </div>
 
-            {/* Small Corner Video Section */}
+            {/* Vertical Showroom Reel / Story Section */}
             <div className="flex justify-start lg:justify-end">
-              <div className="group relative w-full max-w-[340px] overflow-hidden border border-hero-foreground/30 bg-hero/75 p-2.5 backdrop-blur-md shadow-2xl">
+              <div className="group relative w-full max-w-[260px] sm:max-w-[290px] overflow-hidden border border-hero-foreground/30 bg-hero/85 p-2 backdrop-blur-md shadow-2xl">
                 <div className="mb-2 flex items-center justify-between px-1">
-                  <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
+                  <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary">
                     <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Showroom Tour
+                    Showroom Reel
                   </span>
                   <button
                     type="button"
                     onClick={toggleSound}
                     aria-label={isMuted ? "Unmute video sound" : "Mute video sound"}
-                    className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-hero-foreground/80 transition-colors hover:text-primary"
+                    className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-hero-foreground/80 transition-colors hover:text-primary"
                   >
                     {isMuted ? (
                       <>
@@ -178,7 +178,7 @@ function HeroSection() {
                     )}
                   </button>
                 </div>
-                <div className="relative aspect-video w-full overflow-hidden bg-black">
+                <div className="relative aspect-[9/16] w-full overflow-hidden bg-black">
                   <video
                     ref={videoRef}
                     autoPlay
@@ -189,10 +189,15 @@ function HeroSection() {
                     preload="metadata"
                     poster={heroImage}
                     className="h-full w-full object-cover object-center"
-                    aria-label="SO NICE NX showroom video tour"
+                    aria-label="SO NICE NX showroom vertical video reel"
                   >
                     <source src="/video/so-nice-hero.mp4" type="video/mp4" />
                   </video>
+                  {/* Subtle vertical card overlay badge */}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent p-3 pointer-events-none">
+                    <p className="font-display text-sm font-black uppercase text-white">SO NICE NX</p>
+                    <p className="text-[10px] uppercase tracking-wider text-primary font-bold">Showroom Experience</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -246,10 +251,10 @@ function AboutSection() {
 
 function CollectionsSection() {
   return (
-    <section id="collections" className="bg-surface py-20 md:py-28">
-      <div className="mx-auto max-w-[1520px] px-5 lg:px-10">
+    <section id="collections" className="bg-surface py-16 sm:py-20 md:py-28">
+      <div className="mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-10">
         <SectionTitle kicker="01 / Shop by world">Four moods. One roof.</SectionTitle>
-        <div className="grid grid-cols-2 gap-px bg-foreground/20 lg:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-foreground/20 lg:grid-cols-4">
           {collections.map((item, index) => (
             <ScaleIn key={item.name} delay={index * 0.1}>
               <Link
@@ -262,7 +267,7 @@ function CollectionsSection() {
                   height={1200}
                   loading="lazy"
                   alt={`${item.name} fashion collection`}
-                  className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="aspect-[3/4] w-full object-cover object-[center_top] transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-image-shade" />
                 <span className="absolute left-4 top-4 text-xs font-bold text-hero-foreground/70">
@@ -278,7 +283,7 @@ function CollectionsSection() {
             </ScaleIn>
           ))}
         </div>
-        <div className="mt-12 flex justify-center">
+        <div className="mt-10 sm:mt-12 flex justify-center">
           <Link
             to="/collections"
             className="inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
@@ -293,10 +298,10 @@ function CollectionsSection() {
 
 function FeaturedSection() {
   return (
-    <section id="featured" className="py-20 md:py-28">
-      <div className="mx-auto max-w-[1520px] px-5 lg:px-10">
+    <section id="featured" className="py-16 sm:py-20 md:py-28">
+      <div className="mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-10">
         <SectionTitle kicker="02 / New season">Looks worth a second look.</SectionTitle>
-        <div className="grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-12 md:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-12 md:gap-5">
           {featured.map((item, index) => (
             <ScaleIn
               key={item.title}
@@ -337,17 +342,17 @@ function FeaturedSection() {
 
 function CampaignSection() {
   return (
-    <section className="relative min-h-[620px] overflow-hidden bg-hero text-hero-foreground md:min-h-[800px]">
+    <section className="relative min-h-[540px] sm:min-h-[620px] overflow-hidden bg-hero text-hero-foreground md:min-h-[800px]">
       <img
         src={campaignImage}
         width={1600}
         height={1008}
         loading="lazy"
         alt="Three generations celebrating style together"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-center"
       />
       <div className="absolute inset-0 bg-campaign-shade" />
-      <div className="relative mx-auto flex min-h-[620px] max-w-[1520px] flex-col justify-between px-5 py-12 md:min-h-[800px] md:px-10 md:py-16">
+      <div className="relative mx-auto flex min-h-[540px] sm:min-h-[620px] max-w-[1520px] flex-col justify-between px-4 sm:px-6 py-10 sm:py-12 md:min-h-[800px] md:px-10 md:py-16">
         <FadeIn>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-primary">
             03 / The family campaign
@@ -355,19 +360,19 @@ function CampaignSection() {
         </FadeIn>
         <SlideIn direction="left">
           <div>
-            <h2 className="max-w-5xl font-display text-6xl leading-[0.85] font-black uppercase tracking-normal sm:text-8xl lg:text-[9rem]">
+            <h2 className="max-w-5xl font-display text-4xl sm:text-7xl lg:text-[9rem] leading-[0.9] sm:leading-[0.85] font-black uppercase tracking-normal">
               Every
               <br />
               generation.
               <br />
               <span className="text-primary">In style.</span>
             </h2>
-            <p className="mt-6 max-w-md text-hero-foreground/75">
+            <p className="mt-4 sm:mt-6 max-w-md text-sm sm:text-base text-hero-foreground/75">
               From first celebrations to forever traditions — find a look for every chapter.
             </p>
             <Link
               to="/collections"
-              className="mt-8 inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] border border-hero-foreground/40 text-hero-foreground hover:bg-hero-foreground/10"
+              className="mt-6 sm:mt-8 inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] border border-hero-foreground/40 text-hero-foreground hover:bg-hero-foreground/10"
             >
               Shop family edit <ArrowDownRight size={16} />
             </Link>
@@ -380,8 +385,8 @@ function CampaignSection() {
 
 function USPSection() {
   return (
-    <section className="bg-primary py-16 text-primary-foreground md:py-20">
-      <div className="mx-auto grid max-w-[1520px] gap-px bg-primary-foreground/25 px-5 md:grid-cols-4 lg:px-10">
+    <section className="bg-primary py-14 text-primary-foreground md:py-20">
+      <div className="mx-auto grid max-w-[1520px] gap-px bg-primary-foreground/25 px-4 sm:px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
         {usps.map(({ number, title, description }, i) => (
           <motion.div
             key={title}
@@ -392,9 +397,9 @@ function USPSection() {
             transition={{ delay: i * 0.1, duration: 0.5 }}
           >
             <span className="text-xs font-bold">{number}</span>
-            <Sparkles size={22} className="my-8" />
-            <h3 className="font-display text-3xl font-black">{title}</h3>
-            <p className="mt-3 max-w-[25ch] text-sm opacity-75">{description}</p>
+            <Sparkles size={22} className="my-6 sm:my-8" />
+            <h3 className="font-display text-2xl sm:text-3xl font-black">{title}</h3>
+            <p className="mt-2 sm:mt-3 max-w-[25ch] text-sm opacity-75">{description}</p>
           </motion.div>
         ))}
       </div>
@@ -404,8 +409,8 @@ function USPSection() {
 
 function StoreSection() {
   return (
-    <section id="store" className="bg-hero py-20 text-hero-foreground md:py-28">
-      <div className="mx-auto grid max-w-[1520px] gap-10 px-5 lg:grid-cols-[1.15fr_0.85fr] lg:px-10">
+    <section id="store" className="bg-hero py-16 text-hero-foreground sm:py-20 md:py-28">
+      <div className="mx-auto grid max-w-[1520px] gap-10 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-10">
         <ScaleIn>
           <div className="relative">
             <img
@@ -416,38 +421,38 @@ function StoreSection() {
               alt="SO NICE NX fashion showroom interior"
               className="aspect-[4/3] w-full object-cover"
             />
-            <div className="absolute -bottom-5 right-4 bg-primary px-5 py-4 text-xs font-bold uppercase tracking-[0.18em] text-primary-foreground">
+            <div className="absolute -bottom-4 sm:-bottom-5 right-2 sm:right-4 bg-primary px-4 py-3 sm:px-5 sm:py-4 text-xs font-bold uppercase tracking-[0.18em] text-primary-foreground">
               Your next look is here
             </div>
           </div>
         </ScaleIn>
         <SlideIn direction="left">
-          <div className="flex flex-col justify-between border-t border-hero-foreground/25 pt-5 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+          <div className="flex flex-col justify-between border-t border-hero-foreground/25 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
                 04 / Visit SO NICE NX
               </p>
-              <h2 className="mt-8 font-display text-6xl leading-[0.88] font-black uppercase md:text-8xl">
+              <h2 className="mt-6 sm:mt-8 font-display text-4xl sm:text-6xl md:text-8xl leading-[0.9] sm:leading-[0.88] font-black uppercase">
                 Come find
                 <br />
                 your style.
               </h2>
-              <p className="mt-6 max-w-md text-base leading-relaxed text-hero-foreground/75">
+              <p className="mt-4 sm:mt-6 max-w-md text-sm sm:text-base leading-relaxed text-hero-foreground/75">
                 A premium family showroom in the heart of Sausar — open 7 days a week with a
                 welcoming team ready to help you find your perfect look.
               </p>
             </div>
-            <div className="mt-12">
-              <MapPin className="mb-5 text-primary" size={28} />
-              <p className="max-w-md text-lg leading-relaxed">
+            <div className="mt-8 sm:mt-12">
+              <MapPin className="mb-4 sm:mb-5 text-primary" size={26} />
+              <p className="max-w-md text-base sm:text-lg leading-relaxed">
                 Vardhan Heights, Mahatma Jyotiba Foole Chauk, Mohgaon Road, Sausar, Madhya Pradesh
               </p>
-              <p className="mt-4 text-sm text-hero-foreground/55">
+              <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-hero-foreground/55">
                 Landmark: Nang Mandir Chowk, opposite Saraswati Hall
               </p>
               <Link
                 to="/store"
-                className="mt-8 inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground hover:bg-primary/90"
+                className="mt-6 sm:mt-8 inline-flex min-h-11 items-center justify-center gap-2 px-5 py-3 text-xs font-bold uppercase tracking-[0.16em] bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 Store details
               </Link>
@@ -470,17 +475,17 @@ function InstagramSection() {
   ];
 
   return (
-    <section id="instagram" className="py-20 md:py-28">
-      <div className="mx-auto max-w-[1520px] px-5 lg:px-10">
-        <div className="flex flex-col justify-between gap-8 border-y border-foreground/20 py-12 md:flex-row md:items-end">
+    <section id="instagram" className="py-16 sm:py-20 md:py-28">
+      <div className="mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-col justify-between gap-6 sm:gap-8 border-y border-foreground/20 py-10 sm:py-12 md:flex-row md:items-end">
           <FadeIn>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">@so_nice_nx</p>
-            <h2 className="mt-4 max-w-4xl font-display text-5xl leading-[0.9] font-black uppercase md:text-8xl">
+            <h2 className="mt-3 sm:mt-4 max-w-4xl font-display text-4xl sm:text-6xl md:text-8xl leading-[0.9] font-black uppercase">
               Fresh fits.
               <br />
               Daily inspiration.
             </h2>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-3 sm:mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
               Follow us on Instagram for the latest arrivals, styling tips, and behind-the-scenes
               moments from the showroom.
             </p>
@@ -496,7 +501,7 @@ function InstagramSection() {
             </a>
           </FadeIn>
         </div>
-        <div className="mt-12 grid grid-cols-2 gap-px bg-foreground/20 md:grid-cols-3">
+        <div className="mt-8 sm:mt-12 grid grid-cols-2 gap-px bg-foreground/20 md:grid-cols-3">
           {instagramImages.map(({ img, alt }, index) => (
             <ScaleIn key={`instagram-${index}`} delay={index * 0.08}>
               <a
@@ -539,15 +544,15 @@ function ContactPreviewSection() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28">
-      <div className="mx-auto max-w-[1520px] px-5 lg:px-10">
-        <div className="flex flex-col justify-between gap-8 border-y border-foreground/20 py-12 md:flex-row md:items-end">
+    <section id="contact" className="py-16 sm:py-20 md:py-28">
+      <div className="mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-10">
+        <div className="flex flex-col justify-between gap-6 sm:gap-8 border-y border-foreground/20 py-10 sm:py-12 md:flex-row md:items-end">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">@so_nice_nx</p>
-            <h2 className="mt-4 max-w-4xl font-display text-4xl leading-[0.9] font-black uppercase sm:text-5xl md:text-7xl lg:text-8xl">
-              Fresh fits.
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Get In Touch</p>
+            <h2 className="mt-3 sm:mt-4 max-w-4xl font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl leading-[0.9] font-black uppercase">
+              Visit or write
               <br />
-              Daily inspiration.
+              to our team.
             </h2>
           </div>
           <Link
@@ -558,7 +563,7 @@ function ContactPreviewSection() {
           </Link>
         </div>
         <motion.div
-          className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2"
+          className="mt-8 sm:mt-12 grid grid-cols-1 gap-6 md:grid-cols-2"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
