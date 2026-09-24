@@ -63,8 +63,8 @@ export function Header({
   }, [open]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md ${isDark ? "border-hero-foreground/15 bg-hero/90 text-hero-foreground" : "border-foreground/15 bg-background/90 text-foreground"}`}
+      <header
+      className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md ${isDark ? "border-hero-foreground/15 bg-hero/95 text-hero-foreground" : "border-foreground/15 bg-background/95 text-foreground"}`}
     >
       <div className="mx-auto flex h-20 max-w-[1520px] items-center justify-between px-5 lg:px-10">
         <a

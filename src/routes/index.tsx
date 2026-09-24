@@ -73,9 +73,10 @@ function HeroSection() {
           muted
           loop
           playsInline
+          disablePictureInPicture
+          preload="metadata"
           poster={heroImage}
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover opacity-90"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-90"
           aria-label="SO NICE NX promotional video"
         >
           <source src="/video/so-nice-hero.mp4" type="video/mp4" />

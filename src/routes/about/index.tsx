@@ -5,7 +5,6 @@ import {
   ArrowUpRight,
   Building2,
   Gem,
-  Quote,
   Target,
   Users,
   Heart,
@@ -88,49 +87,6 @@ function AboutPage() {
           </motion.div>
         </div>
       </section>
-
-      <motion.section
-        className="relative min-h-[480px] overflow-hidden bg-hero text-hero-foreground lg:min-h-[560px]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="absolute inset-0 bg-hero-wash" />
-        <div className="relative mx-auto flex min-h-[480px] max-w-[1520px] flex-col justify-center px-5 lg:px-10">
-          <motion.p
-            className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.23em] text-primary"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <span className="h-px w-10 bg-primary" />
-            Our story
-          </motion.p>
-          <motion.h1
-            className="max-w-[800px] font-display text-5xl leading-[0.88] font-black uppercase tracking-normal sm:text-7xl lg:text-[7rem]"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.5,
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-            }}
-          >
-            A decade of
-            <br />
-            <span className="text-primary">family style.</span>
-          </motion.h1>
-          <motion.p
-            className="mt-6 max-w-lg text-base leading-relaxed text-hero-foreground/75"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-          >
-            From a small dream to Sausar's most trusted family showroom — our journey is woven with
-            passion, quality, and care.
-          </motion.p>
-        </div>
-      </motion.section>
 
       <SectionReveal direction="up">
         <section className="relative border-b border-foreground/15 py-20 md:py-28">
@@ -270,32 +226,6 @@ function AboutPage() {
           </div>
         </div>
       </motion.section>
-
-      <SectionReveal direction="up">
-        <section className="py-20 md:py-28">
-          <div className="relative mx-auto flex min-h-[400px] max-w-[1520px] flex-col items-start justify-center gap-8 px-5 lg:flex-row lg:items-center lg:px-10">
-            <Quote size={36} className="text-primary shrink-0" />
-            <div>
-              <motion.blockquote
-                className="max-w-3xl font-display text-3xl leading-[1.15] font-black uppercase sm:text-5xl"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                "Fashion is not about clothes — it's about the person wearing them. At SO NICE NX, we dress every chapter of your life."
-              </motion.blockquote>
-              <div className="mt-8 flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center border border-foreground/20 font-display text-lg font-black">FN</div>
-                <div>
-                  <p className="font-display text-lg font-black">Founder & CEO</p>
-                  <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{companyInfo.company}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
 
       <Footer />
     </main>
