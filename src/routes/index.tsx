@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -11,6 +12,7 @@ import {
   X,
   Send,
   CheckCircle2,
+  AlertCircle,
   Volume2,
   VolumeX,
 } from "lucide-react";
@@ -25,6 +27,7 @@ import {
   showroomImage,
 } from "@/data/collections";
 import { companyInfo } from "@/data/company";
+import { contactApi, productApi, type ApiProduct } from "@/lib/api";
 import womenImage from "@/assets/collection-women.jpg";
 import menImage from "@/assets/collection-men.jpg";
 import kidsImage from "@/assets/collection-kids.jpg";
@@ -297,43 +300,64 @@ function CollectionsSection() {
 }
 
 function FeaturedSection() {
+  const { data: products, error } = useQuery({
+    queryKey: ["featured-products"],
+    queryFn: () => productApi.getFeatured().then((r) => r.data),
+  });
+
+  // Fallback to static data if API fails or returns empty
+  const items = products && products.length > 0 ? products : featured;
+
+  if (error) {
+    console.warn("Failed to fetch featured products, using fallback:", error);
+  }
+
   return (
     <section id="featured" className="py-16 sm:py-20 md:py-28">
       <div className="mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-10">
         <SectionTitle kicker="02 / New season">Looks worth a second look.</SectionTitle>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-12 md:gap-5">
-          {featured.map((item, index) => (
-            <ScaleIn
-              key={item.title}
-              delay={index * 0.08}
-              className={`${index === 0 || index === 5 ? "md:col-span-5" : "md:col-span-3"} ${index === 2 ? "md:col-span-4 md:pt-24" : ""} ${index === 3 ? "md:col-span-4" : ""} ${index === 4 ? "md:col-span-3 md:pt-16" : ""}`}
-            >
-              <article className="group overflow-hidden bg-muted">
-                <div className="relative overflow-hidden">
-                  <img
-                    src={item.image}
-                    width={index === 4 ? 1600 : 912}
-                    height={1200}
-                    loading="lazy"
-                    alt={item.title}
-                    className={`aspect-[4/5] w-full object-cover ${item.position} transition-transform duration-700 group-hover:scale-[1.03]`}
-                  />
-                </div>
-                <div className="mt-3 flex items-start justify-between gap-2 border-t border-foreground/30 pt-3">
-                  <div>
-                    <p className="font-display text-xl font-bold md:text-2xl">{item.title}</p>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                      {item.tag}
-                    </p>
-                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground/70 line-clamp-2">
-                      {item.description}
-                    </p>
+          {items.map((item, index) => {
+            const isProduct = "price" in item;
+            const title = isProduct ? item.name : item.title;
+            const tag = isProduct ? item.subcategory : item.tag;
+            const image = isProduct ? item.image : item.image;
+            const description = isProduct ? item.description : item.description;
+            const position = isProduct ? "object-center" : item.position;
+
+            return (
+              <ScaleIn
+                key={isProduct ? item._id : item.title}
+                delay={index * 0.08}
+                className={`${index === 0 || index === 5 ? "md:col-span-5" : "md:col-span-3"} ${index === 2 ? "md:col-span-4 md:pt-24" : ""} ${index === 3 ? "md:col-span-4" : ""} ${index === 4 ? "md:col-span-3 md:pt-16" : ""}`}
+              >
+                <article className="group overflow-hidden bg-muted">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={image}
+                      width={index === 4 ? 1600 : 912}
+                      height={1200}
+                      loading="lazy"
+                      alt={title}
+                      className={`aspect-[4/5] w-full object-cover ${position} transition-transform duration-700 group-hover:scale-[1.03]`}
+                    />
                   </div>
-                  <ArrowUpRight size={18} className="shrink-0 text-primary" />
-                </div>
-              </article>
-            </ScaleIn>
-          ))}
+                  <div className="mt-3 flex items-start justify-between gap-2 border-t border-foreground/30 pt-3">
+                    <div>
+                      <p className="font-display text-xl font-bold md:text-2xl">{title}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                        {tag}
+                      </p>
+                      <p className="mt-2 text-xs leading-relaxed text-muted-foreground/70 line-clamp-2">
+                        {description}
+                      </p>
+                    </div>
+                    <ArrowUpRight size={18} className="shrink-0 text-primary" />
+                  </div>
+                </article>
+              </ScaleIn>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -532,15 +556,27 @@ function InstagramSection() {
 }
 
 function ContactPreviewSection() {
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus("submitting");
-    setTimeout(() => {
+    setErrorMessage("");
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const name = (formData.get("name") as string) || "";
+    const email = (formData.get("email") as string) || "";
+    const message = (formData.get("message") as string) || "";
+
+    try {
+      await contactApi.submit({ name, email, message });
       setFormStatus("success");
       (e.target as HTMLFormElement).reset();
-    }, 1500);
+    } catch (err) {
+      setFormStatus("error");
+      setErrorMessage(err instanceof Error ? err.message : "Something went wrong");
+    }
   };
 
   return (
@@ -579,21 +615,24 @@ function ContactPreviewSection() {
                 name="name"
                 type="text"
                 placeholder="Your name"
-                className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+                disabled={formStatus === "submitting"}
+                className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
               />
               <input
                 required
                 name="email"
                 type="email"
                 placeholder="Your email"
-                className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+                disabled={formStatus === "submitting"}
+                className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
               />
               <textarea
                 required
                 name="message"
                 rows={3}
                 placeholder="Your message"
-                className="w-full resize-none border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+                disabled={formStatus === "submitting"}
+                className="w-full resize-none border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
               />
               <button
                 type="submit"
@@ -611,6 +650,11 @@ function ContactPreviewSection() {
               {formStatus === "success" && (
                 <p className="flex items-center gap-2 text-sm text-primary">
                   <CheckCircle2 size={16} /> Message sent!
+                </p>
+              )}
+              {formStatus === "error" && (
+                <p className="flex items-center gap-2 text-sm text-destructive">
+                  <AlertCircle size={16} /> {errorMessage}
                 </p>
               )}
             </form>

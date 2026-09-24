@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from "express";
 import cors from "cors";
+import path from "path";
 
 import { connectDB } from "./config/db";
 
@@ -27,6 +28,9 @@ app.use(
 );
 
 app.use(express.json());
+
+// Serve static assets (product images, etc.)
+app.use("/assets", express.static(path.join(__dirname, "..", "public", "assets")));
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({

@@ -12,7 +12,7 @@ const products = [
     gender: "Women",
     description: "Comfortable printed cotton kurti set for everyday wear.",
     price: 1299,
-    image: "https://placehold.co/600x800?text=Kurti+Set",
+    image: "/assets/collection-women.jpg",
     featured: true,
     available: true
   },
@@ -23,7 +23,7 @@ const products = [
     gender: "Women",
     description: "Elegant ethnic kurti suitable for casual and festive occasions.",
     price: 999,
-    image: "https://placehold.co/600x800?text=Ethnic+Kurti",
+    image: "/assets/collection-women.jpg",
     featured: true,
     available: true
   },
@@ -34,7 +34,7 @@ const products = [
     gender: "Women",
     description: "Stylish floral gown designed for parties and special occasions.",
     price: 2199,
-    image: "https://placehold.co/600x800?text=Party+Gown",
+    image: "/assets/collection-women.jpg",
     featured: false,
     available: true
   },
@@ -45,7 +45,7 @@ const products = [
     gender: "Women",
     description: "Elegant party wear collection with modern ethnic styling.",
     price: 1899,
-    image: "https://placehold.co/600x800?text=Party+Wear",
+    image: "/assets/collection-women.jpg",
     featured: true,
     available: true
   },
@@ -56,7 +56,7 @@ const products = [
     gender: "Men",
     description: "Classic blue jeans with a comfortable everyday fit.",
     price: 1499,
-    image: "https://placehold.co/600x800?text=Mens+Jeans",
+    image: "/assets/collection-men.jpg",
     featured: true,
     available: true
   },
@@ -67,7 +67,7 @@ const products = [
     gender: "Men",
     description: "Modern slim-fit denim for casual styling.",
     price: 1699,
-    image: "https://placehold.co/600x800?text=Denim",
+    image: "/assets/collection-men.jpg",
     featured: false,
     available: true
   },
@@ -78,7 +78,7 @@ const products = [
     gender: "Men",
     description: "Comfortable casual joggers for everyday wear.",
     price: 899,
-    image: "https://placehold.co/600x800?text=Joggers",
+    image: "/assets/collection-men.jpg",
     featured: false,
     available: true
   },
@@ -89,7 +89,7 @@ const products = [
     gender: "Kids",
     description: "Colorful floral frock designed for girls.",
     price: 799,
-    image: "https://placehold.co/600x800?text=Girls+Frock",
+    image: "/assets/collection-kids.jpg",
     featured: true,
     available: true
   },
@@ -100,7 +100,7 @@ const products = [
     gender: "Kids",
     description: "Comfortable casual fashion for kids.",
     price: 699,
-    image: "https://placehold.co/600x800?text=Kids+Wear",
+    image: "/assets/collection-kids.jpg",
     featured: false,
     available: true
   },
@@ -111,7 +111,7 @@ const products = [
     gender: "Unisex",
     description: "Classic denim jacket suitable for winter styling.",
     price: 1999,
-    image: "https://placehold.co/600x800?text=Denim+Jacket",
+    image: "/assets/collection-winter.jpg",
     featured: true,
     available: true
   },
@@ -122,7 +122,7 @@ const products = [
     gender: "Unisex",
     description: "Warm cotton jacket designed for winter comfort.",
     price: 1799,
-    image: "https://placehold.co/600x800?text=Cotton+Jacket",
+    image: "/assets/collection-winter.jpg",
     featured: false,
     available: true
   },
@@ -133,7 +133,7 @@ const products = [
     gender: "Unisex",
     description: "Warm fur-lined winter top for colder days.",
     price: 2299,
-    image: "https://placehold.co/600x800?text=Winter+Top",
+    image: "/assets/collection-winter.jpg",
     featured: true,
     available: true
   }

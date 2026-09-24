@@ -11,11 +11,13 @@ import {
   Send,
   Sparkles,
   CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 import { Header, Footer, SectionTitle } from "@/components/SiteNav";
 import { SectionReveal, FadeIn, ScaleIn, SlideIn } from "@/components/AnimationWrapper";
 import { storeInfo, contactInfo } from "@/data/collections";
 import { companyInfo } from "@/data/company";
+import { contactApi } from "@/lib/api";
 import contactHero from "@/assets/contact-hero.jpg";
 
 export const Route = createFileRoute("/contact/")({
@@ -40,15 +42,28 @@ export const Route = createFileRoute("/contact/")({
 });
 
 function ContactPage() {
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus("submitting");
-    setTimeout(() => {
+    setErrorMessage("");
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const name = (formData.get("name") as string) || "";
+    const email = (formData.get("email") as string) || "";
+    const phone = (formData.get("phone") as string) || "";
+    const message = (formData.get("message") as string) || "";
+
+    try {
+      await contactApi.submit({ name, phone, email, message });
       setFormStatus("success");
       (e.target as HTMLFormElement).reset();
-    }, 1500);
+    } catch (err) {
+      setFormStatus("error");
+      setErrorMessage(err instanceof Error ? err.message : "Something went wrong");
+    }
   };
 
   return (
@@ -133,7 +148,8 @@ function ContactPage() {
                       required
                       type="text"
                       placeholder="Your full name"
-                      className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+                      disabled={formStatus === "submitting"}
+                      className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
                     />
                   </div>
                   <div>
@@ -149,7 +165,8 @@ function ContactPage() {
                       required
                       type="email"
                       placeholder="you@example.com"
-                      className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+                      disabled={formStatus === "submitting"}
+                      className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -164,10 +181,10 @@ function ContactPage() {
                     <input
                       id="phone"
                       name="phone"
-                      required
                       type="tel"
                       placeholder="+91 XXXXX XXXXX"
-                      className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+                      disabled={formStatus === "submitting"}
+                      className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
                     />
                   </div>
                   <div>
@@ -183,7 +200,8 @@ function ContactPage() {
                       required
                       type="text"
                       placeholder="How can we help?"
-                      className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+                      disabled={formStatus === "submitting"}
+                      className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -200,7 +218,8 @@ function ContactPage() {
                     required
                     rows={6}
                     placeholder="Tell us what you're looking for..."
-                    className="w-full resize-none border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
+                    disabled={formStatus === "submitting"}
+                    className="w-full resize-none border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
                   />
                 </div>
                 <button
@@ -229,6 +248,20 @@ function ContactPage() {
                       <p className="text-sm text-muted-foreground">
                         We'll get back to you within 24 hours.
                       </p>
+                    </div>
+                  </motion.div>
+                )}
+                {formStatus === "error" && (
+                  <motion.div
+                    className="flex items-center gap-3 border border-destructive/30 bg-destructive/10 px-5 py-4"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <AlertCircle size={20} className="shrink-0 text-destructive" />
+                    <div>
+                      <p className="font-display text-base font-black">Failed to send</p>
+                      <p className="text-sm text-muted-foreground">{errorMessage}</p>
                     </div>
                   </motion.div>
                 )}

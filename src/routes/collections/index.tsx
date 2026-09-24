@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -9,10 +10,12 @@ import {
   Star,
   Truck,
   ShieldCheck,
+  Package,
 } from "lucide-react";
 import { Header, Footer, SectionTitle } from "@/components/SiteNav";
 import { SectionReveal, FadeIn, ScaleIn, SlideIn } from "@/components/AnimationWrapper";
 import { collections, heroImage } from "@/data/collections";
+import { productApi, type ApiProduct } from "@/lib/api";
 
 export const Route = createFileRoute("/collections/")({
   head: () => ({
@@ -146,6 +149,84 @@ function CollectionCard({ item, index }: { item: (typeof collections)[0]; index:
   );
 }
 
+function ProductsByCategory({ category }: { category: "Women" | "Men" | "Kids" | "Winter" }) {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["products", category],
+    queryFn: () => productApi.getAll(category).then((r) => r.data),
+  });
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="h-64 animate-pulse bg-muted" />
+        ))}
+      </div>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <div className="flex items-center gap-2 py-8 text-muted-foreground">
+        <Package size={20} />
+        <span className="text-sm">Products will be available soon.</span>
+      </div>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <div className="flex items-center gap-2 py-8 text-muted-foreground">
+        <Package size={20} />
+        <span className="text-sm">No products available in this category yet.</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {data.map((product) => (
+        <ScaleIn key={product._id}>
+          <article className="group overflow-hidden border border-foreground/15">
+            <div className="relative overflow-hidden">
+              <img
+                src={product.image}
+                width={600}
+                height={800}
+                loading="lazy"
+                alt={product.name}
+                className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              {product.featured && (
+                <span className="absolute left-3 top-3 bg-primary px-2 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-primary-foreground">
+                  Featured
+                </span>
+              )}
+            </div>
+            <div className="p-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                {product.subcategory}
+              </p>
+              <h3 className="mt-1 font-display text-xl font-black">{product.name}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">
+                {product.description}
+              </p>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="font-display text-2xl font-black text-primary">
+                  ₹{product.price.toLocaleString("en-IN")}
+                </span>
+                <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                  View <ArrowUpRight size={14} />
+                </span>
+              </div>
+            </div>
+          </article>
+        </ScaleIn>
+      ))}
+    </div>
+  );
+}
+
 function CollectionsPage() {
   return (
     <main className="overflow-hidden bg-background text-foreground">
@@ -224,7 +305,43 @@ function CollectionsPage() {
       <SectionReveal direction="up">
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-[1520px] px-5 lg:px-10">
-            <SectionTitle kicker="02 / Promise">What makes us different.</SectionTitle>
+            <SectionTitle kicker="02 / Products">Shop the collection.</SectionTitle>
+
+            <div className="mb-16">
+              <h3 className="mb-6 font-display text-3xl font-black uppercase tracking-tight">
+                Women
+              </h3>
+              <ProductsByCategory category="Women" />
+            </div>
+
+            <div className="mb-16">
+              <h3 className="mb-6 font-display text-3xl font-black uppercase tracking-tight">
+                Men
+              </h3>
+              <ProductsByCategory category="Men" />
+            </div>
+
+            <div className="mb-16">
+              <h3 className="mb-6 font-display text-3xl font-black uppercase tracking-tight">
+                Kids
+              </h3>
+              <ProductsByCategory category="Kids" />
+            </div>
+
+            <div className="mb-16">
+              <h3 className="mb-6 font-display text-3xl font-black uppercase tracking-tight">
+                Winter
+              </h3>
+              <ProductsByCategory category="Winter" />
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      <SectionReveal direction="up">
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-[1520px] px-5 lg:px-10">
+            <SectionTitle kicker="03 / Promise">What makes us different.</SectionTitle>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
