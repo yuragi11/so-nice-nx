@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -62,13 +62,34 @@ function HeaderWithAnimation() {
 }
 
 function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay may be restricted by browser policy; fallback poster is displayed seamlessly
+      });
+    }
+  }, []);
+
   return (
     <SectionReveal direction="up">
       <section
         id="home"
-        className="relative min-h-[760px] bg-hero text-hero-foreground lg:min-h-screen"
+        className="relative min-h-[760px] min-h-[100svh] w-full overflow-hidden bg-hero text-hero-foreground lg:min-h-screen"
       >
+        {/* Instant Fallback / Poster Image to eliminate CLS & loading flicker */}
+        <img
+          src={heroImage}
+          alt="SO NICE NX showroom background"
+          width={1600}
+          height={1008}
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
+
+        {/* Ambient Brand Video */}
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
@@ -76,12 +97,15 @@ function HeroSection() {
           disablePictureInPicture
           preload="metadata"
           poster={heroImage}
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-90"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-90 transition-opacity duration-700"
           aria-label="SO NICE NX promotional video"
         >
           <source src="/video/so-nice-hero.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-hero-wash" />
+
+        {/* Brand visual overlays for high text contrast and editorial mood */}
+        <div className="absolute inset-0 bg-hero-wash pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-hero/90 via-hero/40 to-transparent pointer-events-none" />
         <div className="absolute right-0 top-28 hidden border-y border-hero-foreground/25 bg-hero/50 px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] text-primary backdrop-blur-sm md:block">
           {companyInfo.location.split(",")[0]} · {companyInfo.location.split(",")[1]?.trim()}
         </div>
