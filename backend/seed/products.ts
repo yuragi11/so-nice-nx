@@ -89,7 +89,7 @@ const products = [
     gender: "Kids",
     description: "Colorful floral frock designed for girls.",
     price: 799,
-    image: "/assets/frock3.jpg",
+    image: "/assets/frock11.jpg",
     featured: true,
     available: true
   },
@@ -122,7 +122,7 @@ const products = [
     gender: "Unisex",
     description: "Warm cotton jacket designed for winter comfort.",
     price: 1799,
-    image: "/assets/jacket4.jpg",
+    image: "/assets/jacket14.jpg",
     featured: false,
     available: true
   },
@@ -133,7 +133,7 @@ const products = [
     gender: "Unisex",
     description: "Warm fur-lined winter top for colder days.",
     price: 2299,
-    image: "/assets/furtop2.jpg",
+    image: "/assets/furtop12.jpg",
     featured: true,
     available: true
   }

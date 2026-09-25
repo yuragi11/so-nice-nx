@@ -23,12 +23,14 @@ import partywear1 from "@/assets/partywear1.jpg";
 import jeans2 from "@/assets/jeans2.jpg";
 import denim3 from "@/assets/denim3.jpg";
 import joggers2 from "@/assets/joggers2.jpg";
-import frock2 from "@/assets/frock2.jpg";
+import frock11 from "@/assets/frock11.jpg";
 import kids2 from "@/assets/kids2.jpg";
 import jacket3 from "@/assets/jacket3.jpg";
 import jacket4 from "@/assets/jacket4.jpg";
 import jacket5 from "@/assets/jacket5.jpg";
+import jacket14 from "@/assets/jacket14.jpg";
 import furtop2 from "@/assets/furtop2.jpg";
+import furtop12 from "@/assets/furtop12.jpg";
 
 // Static fallback product data (matches backend seed data)
 // Uses real product-specific images downloaded from Unsplash/Pexels
@@ -40,11 +42,11 @@ const staticProducts: ApiProduct[] = [
   { _id: "5", name: "Classic Blue Jeans", category: "Men", subcategory: "Jeans", gender: "Men", description: "Classic blue jeans with a comfortable everyday fit.", price: 1499, image: jeans2, featured: true, available: true, createdAt: "", updatedAt: "" },
   { _id: "6", name: "Slim Fit Denim", category: "Men", subcategory: "Denims", gender: "Men", description: "Modern slim-fit denim for casual styling.", price: 1699, image: denim3, featured: false, available: true, createdAt: "", updatedAt: "" },
   { _id: "7", name: "Men's Casual Joggers", category: "Men", subcategory: "Joggers", gender: "Men", description: "Comfortable casual joggers for everyday wear.", price: 899, image: joggers2, featured: false, available: true, createdAt: "", updatedAt: "" },
-  { _id: "8", name: "Girls Floral Frock", category: "Kids", subcategory: "Frocks", gender: "Kids", description: "Colorful floral frock designed for girls.", price: 799, image: frock2, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "8", name: "Girls Floral Frock", category: "Kids", subcategory: "Frocks", gender: "Kids", description: "Colorful floral frock designed for girls.", price: 799, image: frock11, featured: true, available: true, createdAt: "", updatedAt: "" },
   { _id: "9", name: "Kids Casual Outfit", category: "Kids", subcategory: "Casual Wear", gender: "Kids", description: "Comfortable casual fashion for kids.", price: 699, image: kids2, featured: false, available: true, createdAt: "", updatedAt: "" },
   { _id: "10", name: "Denim Winter Jacket", category: "Winter", subcategory: "Jackets", gender: "Unisex", description: "Classic denim jacket suitable for winter styling.", price: 1999, image: jacket5, featured: true, available: true, createdAt: "", updatedAt: "" },
-  { _id: "11", name: "Cotton Winter Jacket", category: "Winter", subcategory: "Jackets", gender: "Unisex", description: "Warm cotton jacket designed for winter comfort.", price: 1799, image: jacket4, featured: false, available: true, createdAt: "", updatedAt: "" },
-  { _id: "12", name: "Fur-Lined Winter Top", category: "Winter", subcategory: "Fur-lined Jackets", gender: "Unisex", description: "Warm fur-lined winter top for colder days.", price: 2299, image: furtop2, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "11", name: "Cotton Winter Jacket", category: "Winter", subcategory: "Jackets", gender: "Unisex", description: "Warm cotton jacket designed for winter comfort.", price: 1799, image: jacket14, featured: false, available: true, createdAt: "", updatedAt: "" },
+  { _id: "12", name: "Fur-Lined Winter Top", category: "Winter", subcategory: "Fur-lined Jackets", gender: "Unisex", description: "Warm fur-lined winter top for colder days.", price: 2299, image: furtop12, featured: true, available: true, createdAt: "", updatedAt: "" },
 ];
 
 export const Route = createFileRoute("/collections/")({
