@@ -120,3 +120,12 @@ Never commit `.env` or database credentials.
 ## Project Scope
 
 This backend is a prototype foundation for the SO NICE NX showroom website. Authentication, payment gateway, cart, orders, inventory management and advanced recommendation systems are intentionally outside the current assignment scope.
+
+## Integration Status
+
+Frontend and backend are fully connected:
+- Contact forms submit to `/api/contact` → MongoDB `Contact` collection
+- Product catalog fetched from `/api/products` → MongoDB `Product` collection
+- Store information from `/api/store`
+- Static assets served from backend `/assets`
+- Vite dev proxy configured for `/api` and `/assets`
