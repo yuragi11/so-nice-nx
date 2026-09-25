@@ -9,7 +9,10 @@ export const queryClient = new QueryClient({
   },
 });
 
-const API_BASE = "/api";
+// Backend URL
+// Local development: VITE_API_URL can be set in .env
+// Production: Vercel uses VITE_API_URL from Vercel Environment Variables
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export interface ApiProduct {
   _id: string;
@@ -49,7 +52,10 @@ export interface ApiResponse<T> {
   count?: number;
 }
 
-async function request<T>(endpoint: string, options?: RequestInit): Promise<ApiResponse<T>> {
+async function request<T>(
+  endpoint: string,
+  options?: RequestInit
+): Promise<ApiResponse<T>> {
   const response = await fetch(`${API_BASE}${endpoint}`, {
     headers: {
       "Content-Type": "application/json",
@@ -58,7 +64,10 @@ async function request<T>(endpoint: string, options?: RequestInit): Promise<ApiR
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ message: "Request failed" }));
+    const error = await response
+      .json()
+      .catch(() => ({ message: "Request failed" }));
+
     throw new Error(error.message || `HTTP ${response.status}`);
   }
 
@@ -68,23 +77,35 @@ async function request<T>(endpoint: string, options?: RequestInit): Promise<ApiR
 export const productApi = {
   getAll: (category?: string, search?: string) => {
     const params = new URLSearchParams();
-    if (category) params.set("category", category);
-    if (search) params.set("search", search);
+
+    if (category) {
+      params.set("category", category);
+    }
+
+    if (search) {
+      params.set("search", search);
+    }
+
     const query = params.toString() ? `?${params.toString()}` : "";
-    return request<ApiProduct[]>(`/products${query}`);
+
+    return request<ApiProduct[]>(`/api/products${query}`);
   },
-  getFeatured: () => request<ApiProduct[]>(`/products/featured`),
-  getById: (id: string) => request<ApiProduct>(`/products/${id}`),
+
+  getFeatured: () =>
+    request<ApiProduct[]>("/api/products/featured"),
+
+  getById: (id: string) =>
+    request<ApiProduct>(`/api/products/${id}`),
 };
 
 export const contactApi = {
   submit: (data: ContactInput) =>
-    request<ApiContact>("/contact", {
+    request<ApiContact>("/api/contact", {
       method: "POST",
       body: JSON.stringify(data),
     }),
 };
 
 export const storeApi = {
-  get: () => request<unknown>("/store"),
+  get: () => request<unknown>("/api/store"),
 };
