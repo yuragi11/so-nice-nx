@@ -10,9 +10,10 @@ export const queryClient = new QueryClient({
 });
 
 // Backend API URL
-// In development, Vite proxy handles /api requests (no URL needed)
-// In production, VITE_API_URL must be set (e.g. https://your-backend.onrender.com/api)
-const API_BASE = import.meta.env.VITE_API_URL || "https://so-nice-nx.onrender.com/api";
+// Vercel Environment Variable:
+// VITE_API_URL=https://so-nice-nx.onrender.com
+const API_BASE =
+  import.meta.env.VITE_API_URL || "https://so-nice-nx.onrender.com";
 
 export interface ApiProduct {
   _id: string;
@@ -56,7 +57,7 @@ async function request<T>(
   endpoint: string,
   options?: RequestInit
 ): Promise<ApiResponse<T>> {
-  const response = await fetch(`${API_BASE}${endpoint}`, {
+  const response = await fetch(`${API_BASE}/api${endpoint}`, {
     headers: {
       "Content-Type": "application/json",
     },
