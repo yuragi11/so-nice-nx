@@ -56,7 +56,7 @@ const products = [
     gender: "Men",
     description: "Classic blue jeans with a comfortable everyday fit.",
     price: 1499,
-    image: "/assets/jeans1.jpg",
+    image: "/assets/jeans2.jpg",
     featured: true,
     available: true
   },
@@ -67,7 +67,7 @@ const products = [
     gender: "Men",
     description: "Modern slim-fit denim for casual styling.",
     price: 1699,
-    image: "/assets/collection-men.jpg",
+    image: "/assets/jeans1.jpg",
     featured: false,
     available: true
   },
@@ -78,7 +78,7 @@ const products = [
     gender: "Men",
     description: "Comfortable casual joggers for everyday wear.",
     price: 899,
-    image: "/assets/showroom.jpg",
+    image: "/assets/joggers2.jpg",
     featured: false,
     available: true
   },
@@ -89,7 +89,7 @@ const products = [
     gender: "Kids",
     description: "Colorful floral frock designed for girls.",
     price: 799,
-    image: "/assets/kids1.jpg",
+    image: "/assets/frock2.jpg",
     featured: true,
     available: true
   },
@@ -100,7 +100,7 @@ const products = [
     gender: "Kids",
     description: "Comfortable casual fashion for kids.",
     price: 699,
-    image: "/assets/dress1.jpg",
+    image: "/assets/kids2.jpg",
     featured: false,
     available: true
   },
@@ -111,7 +111,7 @@ const products = [
     gender: "Unisex",
     description: "Classic denim jacket suitable for winter styling.",
     price: 1999,
-    image: "/assets/jacket1.jpg",
+    image: "/assets/jacket3.jpg",
     featured: true,
     available: true
   },
@@ -122,7 +122,7 @@ const products = [
     gender: "Unisex",
     description: "Warm cotton jacket designed for winter comfort.",
     price: 1799,
-    image: "/assets/jacket2.jpg",
+    image: "/assets/jacket4.jpg",
     featured: false,
     available: true
   },
@@ -133,7 +133,7 @@ const products = [
     gender: "Unisex",
     description: "Warm fur-lined winter top for colder days.",
     price: 2299,
-    image: "/assets/collection-winter.jpg",
+    image: "/assets/furtop2.jpg",
     featured: true,
     available: true
   }
