@@ -14,15 +14,20 @@ export const validateContact = (
     });
   }
 
-  if (phone && typeof phone === "string") {
-    const phoneRegex = /^[6-9]\d{9}$/;
+  if (!phone || typeof phone !== "string") {
+    return res.status(400).json({
+      success: false,
+      message: "Phone is required"
+    });
+  }
 
-    if (!phoneRegex.test(phone.trim())) {
-      return res.status(400).json({
-        success: false,
-        message: "Please provide a valid 10-digit Indian phone number"
-      });
-    }
+  const phoneRegex = /^[6-9]\d{9}$/;
+
+  if (!phoneRegex.test(phone.trim())) {
+    return res.status(400).json({
+      success: false,
+      message: "Please provide a valid 10-digit Indian phone number"
+    });
   }
 
   if (email) {

@@ -11,7 +11,7 @@ export const createContact = async (
 
     const contact = await Contact.create({
       name: name.trim(),
-      phone: phone?.trim() || "",
+      phone: phone.trim(),
       email: email?.trim(),
       message: message.trim()
     });

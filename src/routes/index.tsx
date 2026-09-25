@@ -566,11 +566,12 @@ function ContactPreviewSection() {
 
     const formData = new FormData(e.target as HTMLFormElement);
     const name = (formData.get("name") as string) || "";
+    const phone = (formData.get("phone") as string) || "";
     const email = (formData.get("email") as string) || "";
     const message = (formData.get("message") as string) || "";
 
     try {
-      await contactApi.submit({ name, email, message });
+      await contactApi.submit({ name, phone, email, message });
       setFormStatus("success");
       (e.target as HTMLFormElement).reset();
     } catch (err) {
@@ -615,6 +616,14 @@ function ContactPreviewSection() {
                 name="name"
                 type="text"
                 placeholder="Your name"
+                disabled={formStatus === "submitting"}
+                className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
+              />
+              <input
+                required
+                name="phone"
+                type="tel"
+                placeholder="Phone (10-digit Indian)"
                 disabled={formStatus === "submitting"}
                 className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
               />
