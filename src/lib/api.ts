@@ -15,6 +15,21 @@ export const queryClient = new QueryClient({
 const API_BASE =
   import.meta.env.VITE_API_URL || "https://so-nice-nx.onrender.com";
 
+// Convert backend image paths into complete Render URLs
+const getImageUrl = (image: string) => {
+  if (!image) {
+    return "";
+  }
+
+  // If image is already a complete URL, use it as it is
+  if (image.startsWith("http://") || image.startsWith("https://")) {
+    return image;
+  }
+
+  // Product images are served by the Render backend
+  return `${API_BASE}${image.startsWith("/") ? image : `/${image}`}`;
+};
+
 export interface ApiProduct {
   _id: string;
   name: string;
@@ -76,7 +91,7 @@ async function request<T>(
 }
 
 export const productApi = {
-  getAll: (category?: string, search?: string) => {
+  getAll: async (category?: string, search?: string) => {
     const params = new URLSearchParams();
 
     if (category) {
@@ -89,14 +104,49 @@ export const productApi = {
 
     const query = params.toString() ? `?${params.toString()}` : "";
 
-    return request<ApiProduct[]>(`/products${query}`);
+    const response = await request<ApiProduct[]>(
+      `/products${query}`
+    );
+
+    if (response.data) {
+      response.data = response.data.map((product) => ({
+        ...product,
+        image: getImageUrl(product.image),
+      }));
+    }
+
+    return response;
   },
 
-  getFeatured: () =>
-    request<ApiProduct[]>("/products/featured"),
+  getFeatured: async () => {
+    const response = await request<ApiProduct[]>(
+      "/products/featured"
+    );
 
-  getById: (id: string) =>
-    request<ApiProduct>(`/products/${id}`),
+    if (response.data) {
+      response.data = response.data.map((product) => ({
+        ...product,
+        image: getImageUrl(product.image),
+      }));
+    }
+
+    return response;
+  },
+
+  getById: async (id: string) => {
+    const response = await request<ApiProduct>(
+      `/products/${id}`
+    );
+
+    if (response.data) {
+      response.data = {
+        ...response.data,
+        image: getImageUrl(response.data.image),
+      };
+    }
+
+    return response;
+  },
 };
 
 export const contactApi = {
