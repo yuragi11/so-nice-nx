@@ -12,7 +12,7 @@ const products = [
     gender: "Women",
     description: "Comfortable printed cotton kurti set for everyday wear.",
     price: 1299,
-    image: "/assets/collection-women.jpg",
+    image: "/assets/kurti1.jpg",
     featured: true,
     available: true
   },
@@ -23,7 +23,7 @@ const products = [
     gender: "Women",
     description: "Elegant ethnic kurti suitable for casual and festive occasions.",
     price: 999,
-    image: "/assets/collection-women.jpg",
+    image: "/assets/kurti2.jpg",
     featured: true,
     available: true
   },
@@ -34,7 +34,7 @@ const products = [
     gender: "Women",
     description: "Stylish floral gown designed for parties and special occasions.",
     price: 2199,
-    image: "/assets/collection-women.jpg",
+    image: "/assets/gown1.jpg",
     featured: false,
     available: true
   },
@@ -45,7 +45,7 @@ const products = [
     gender: "Women",
     description: "Elegant party wear collection with modern ethnic styling.",
     price: 1899,
-    image: "/assets/collection-women.jpg",
+    image: "/assets/partywear1.jpg",
     featured: true,
     available: true
   },
@@ -56,7 +56,7 @@ const products = [
     gender: "Men",
     description: "Classic blue jeans with a comfortable everyday fit.",
     price: 1499,
-    image: "/assets/collection-men.jpg",
+    image: "/assets/jeans1.jpg",
     featured: true,
     available: true
   },
@@ -78,7 +78,7 @@ const products = [
     gender: "Men",
     description: "Comfortable casual joggers for everyday wear.",
     price: 899,
-    image: "/assets/collection-men.jpg",
+    image: "/assets/showroom.jpg",
     featured: false,
     available: true
   },
@@ -89,7 +89,7 @@ const products = [
     gender: "Kids",
     description: "Colorful floral frock designed for girls.",
     price: 799,
-    image: "/assets/collection-kids.jpg",
+    image: "/assets/kids1.jpg",
     featured: true,
     available: true
   },
@@ -100,7 +100,7 @@ const products = [
     gender: "Kids",
     description: "Comfortable casual fashion for kids.",
     price: 699,
-    image: "/assets/collection-kids.jpg",
+    image: "/assets/dress1.jpg",
     featured: false,
     available: true
   },
@@ -111,7 +111,7 @@ const products = [
     gender: "Unisex",
     description: "Classic denim jacket suitable for winter styling.",
     price: 1999,
-    image: "/assets/collection-winter.jpg",
+    image: "/assets/jacket1.jpg",
     featured: true,
     available: true
   },
@@ -122,7 +122,7 @@ const products = [
     gender: "Unisex",
     description: "Warm cotton jacket designed for winter comfort.",
     price: 1799,
-    image: "/assets/collection-winter.jpg",
+    image: "/assets/jacket2.jpg",
     featured: false,
     available: true
   },
@@ -139,25 +139,15 @@ const products = [
   }
 ];
 
-const seedProducts = async () => {
+(async () => {
   try {
-    if (!process.env.MONGODB_URI) {
-      throw new Error("MONGODB_URI is missing");
-    }
-
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log("MongoDB connected");
-
+    await mongoose.connect(process.env.MONGODB_URI!);
     await Product.deleteMany({});
     await Product.insertMany(products);
-
-    console.log(`${products.length} products seeded successfully`);
-
-    await mongoose.disconnect();
-  } catch (error) {
-    console.error("Seeding failed:", error);
+    console.log("12 products seeded successfully");
+    mongoose.disconnect();
+  } catch (err) {
+    console.error("Seeding failed:", err);
     process.exit(1);
   }
-};
-
-seedProducts();
+})();

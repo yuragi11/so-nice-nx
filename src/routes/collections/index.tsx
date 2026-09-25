@@ -16,30 +16,37 @@ import { Header, Footer, SectionTitle } from "@/components/SiteNav";
 import { SectionReveal, FadeIn, ScaleIn, SlideIn } from "@/components/AnimationWrapper";
 import { collections, heroImage } from "@/data/collections";
 import { productApi, type ApiProduct } from "@/lib/api";
+import kurti1 from "@/assets/kurti1.jpg";
+import kurti2 from "@/assets/kurti2.jpg";
+import gown1 from "@/assets/gown1.jpg";
+import partywear1 from "@/assets/partywear1.jpg";
+import dress1 from "@/assets/dress1.jpg";
+import jeans1 from "@/assets/jeans1.jpg";
+import kids1 from "@/assets/kids1.jpg";
+import jacket1 from "@/assets/jacket1.jpg";
+import jacket2 from "@/assets/jacket2.jpg";
 import womenImage from "@/assets/collection-women.jpg";
 import menImage from "@/assets/collection-men.jpg";
-import kidsImage from "@/assets/collection-kids.jpg";
 import winterImage from "@/assets/collection-winter.jpg";
 import campaignImage from "@/assets/family-campaign.jpg";
 import showroomImage from "@/assets/showroom.jpg";
-import contactHeroImage from "@/assets/contact-hero.jpg";
 import soNiceHeroImage from "@/assets/so-nice-hero.jpg";
 
 // Static fallback product data (matches backend seed data)
-// Uses real product images from assets, each product gets a unique image
+// Uses real product-specific images downloaded from Unsplash
 const staticProducts: ApiProduct[] = [
-  { _id: "1", name: "Printed Cotton Kurti Set", category: "Women", subcategory: "Kurti Sets", gender: "Women", description: "Comfortable printed cotton kurti set for everyday wear.", price: 1299, image: womenImage, featured: true, available: true, createdAt: "", updatedAt: "" },
-  { _id: "2", name: "Elegant Ethnic Kurti", category: "Women", subcategory: "Kurtis", gender: "Women", description: "Elegant ethnic kurti suitable for casual and festive occasions.", price: 999, image: campaignImage, featured: true, available: true, createdAt: "", updatedAt: "" },
-  { _id: "3", name: "Floral Party Gown", category: "Women", subcategory: "Gowns", gender: "Women", description: "Stylish floral gown designed for parties and special occasions.", price: 2199, image: soNiceHeroImage, featured: false, available: true, createdAt: "", updatedAt: "" },
-  { _id: "4", name: "Classic Ethnic Party Wear", category: "Women", subcategory: "Party Wear", gender: "Women", description: "Elegant party wear collection with modern ethnic styling.", price: 1899, image: showroomImage, featured: true, available: true, createdAt: "", updatedAt: "" },
-  { _id: "5", name: "Classic Blue Jeans", category: "Men", subcategory: "Jeans", gender: "Men", description: "Classic blue jeans with a comfortable everyday fit.", price: 1499, image: menImage, featured: true, available: true, createdAt: "", updatedAt: "" },
-  { _id: "6", name: "Slim Fit Denim", category: "Men", subcategory: "Denims", gender: "Men", description: "Modern slim-fit denim for casual styling.", price: 1699, image: showroomImage, featured: false, available: true, createdAt: "", updatedAt: "" },
-  { _id: "7", name: "Men's Casual Joggers", category: "Men", subcategory: "Joggers", gender: "Men", description: "Comfortable casual joggers for everyday wear.", price: 899, image: contactHeroImage, featured: false, available: true, createdAt: "", updatedAt: "" },
-  { _id: "8", name: "Girls Floral Frock", category: "Kids", subcategory: "Frocks", gender: "Kids", description: "Colorful floral frock designed for girls.", price: 799, image: kidsImage, featured: true, available: true, createdAt: "", updatedAt: "" },
-  { _id: "9", name: "Kids Casual Outfit", category: "Kids", subcategory: "Casual Wear", gender: "Kids", description: "Comfortable casual fashion for kids.", price: 699, image: campaignImage, featured: false, available: true, createdAt: "", updatedAt: "" },
-  { _id: "10", name: "Denim Winter Jacket", category: "Winter", subcategory: "Jackets", gender: "Unisex", description: "Classic denim jacket suitable for winter styling.", price: 1999, image: winterImage, featured: true, available: true, createdAt: "", updatedAt: "" },
-  { _id: "11", name: "Cotton Winter Jacket", category: "Winter", subcategory: "Jackets", gender: "Unisex", description: "Warm cotton jacket designed for winter comfort.", price: 1799, image: showroomImage, featured: false, available: true, createdAt: "", updatedAt: "" },
-  { _id: "12", name: "Fur-Lined Winter Top", category: "Winter", subcategory: "Fur-lined Jackets", gender: "Unisex", description: "Warm fur-lined winter top for colder days.", price: 2299, image: soNiceHeroImage, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "1", name: "Printed Cotton Kurti Set", category: "Women", subcategory: "Kurti Sets", gender: "Women", description: "Comfortable printed cotton kurti set for everyday wear.", price: 1299, image: kurti1, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "2", name: "Elegant Ethnic Kurti", category: "Women", subcategory: "Kurtis", gender: "Women", description: "Elegant ethnic kurti suitable for casual and festive occasions.", price: 999, image: kurti2, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "3", name: "Floral Party Gown", category: "Women", subcategory: "Gowns", gender: "Women", description: "Stylish floral gown designed for parties and special occasions.", price: 2199, image: gown1, featured: false, available: true, createdAt: "", updatedAt: "" },
+  { _id: "4", name: "Classic Ethnic Party Wear", category: "Women", subcategory: "Party Wear", gender: "Women", description: "Elegant party wear collection with modern ethnic styling.", price: 1899, image: partywear1, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "5", name: "Classic Blue Jeans", category: "Men", subcategory: "Jeans", gender: "Men", description: "Classic blue jeans with a comfortable everyday fit.", price: 1499, image: jeans1, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "6", name: "Slim Fit Denim", category: "Men", subcategory: "Denims", gender: "Men", description: "Modern slim-fit denim for casual styling.", price: 1699, image: menImage, featured: false, available: true, createdAt: "", updatedAt: "" },
+  { _id: "7", name: "Men's Casual Joggers", category: "Men", subcategory: "Joggers", gender: "Men", description: "Comfortable casual joggers for everyday wear.", price: 899, image: showroomImage, featured: false, available: true, createdAt: "", updatedAt: "" },
+  { _id: "8", name: "Girls Floral Frock", category: "Kids", subcategory: "Frocks", gender: "Kids", description: "Colorful floral frock designed for girls.", price: 799, image: kids1, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "9", name: "Kids Casual Outfit", category: "Kids", subcategory: "Casual Wear", gender: "Kids", description: "Comfortable casual fashion for kids.", price: 699, image: dress1, featured: false, available: true, createdAt: "", updatedAt: "" },
+  { _id: "10", name: "Denim Winter Jacket", category: "Winter", subcategory: "Jackets", gender: "Unisex", description: "Classic denim jacket suitable for winter styling.", price: 1999, image: jacket1, featured: true, available: true, createdAt: "", updatedAt: "" },
+  { _id: "11", name: "Cotton Winter Jacket", category: "Winter", subcategory: "Jackets", gender: "Unisex", description: "Warm cotton jacket designed for winter comfort.", price: 1799, image: jacket2, featured: false, available: true, createdAt: "", updatedAt: "" },
+  { _id: "12", name: "Fur-Lined Winter Top", category: "Winter", subcategory: "Fur-lined Jackets", gender: "Unisex", description: "Warm fur-lined winter top for colder days.", price: 2299, image: winterImage, featured: true, available: true, createdAt: "", updatedAt: "" },
 ];
 
 export const Route = createFileRoute("/collections/")({
