@@ -181,7 +181,6 @@ function ContactPage() {
                     <input
                       id="phone"
                       name="phone"
-                      required
                       type="tel"
                       placeholder="+91 XXXXX XXXXX"
                       disabled={formStatus === "submitting"}

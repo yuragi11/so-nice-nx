@@ -619,14 +619,13 @@ function ContactPreviewSection() {
                 disabled={formStatus === "submitting"}
                 className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
               />
-              <input
-                required
-                name="phone"
-                type="tel"
-                placeholder="Phone (10-digit Indian)"
-                disabled={formStatus === "submitting"}
-                className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
-              />
+<input
+                  name="phone"
+                  type="tel"
+                  placeholder="Phone (optional)"
+                  disabled={formStatus === "submitting"}
+                  className="w-full border border-foreground/20 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-primary disabled:opacity-60"
+                />
               <input
                 required
                 name="email"

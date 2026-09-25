@@ -14,20 +14,16 @@ export const validateContact = (
     });
   }
 
-  if (!phone || typeof phone !== "string") {
-    return res.status(400).json({
-      success: false,
-      message: "Phone is required"
-    });
-  }
+  // Phone is optional — only validate when provided
+  if (phone && typeof phone === "string" && phone.trim()) {
+    const phoneRegex = /^[6-9]\d{9}$/;
 
-  const phoneRegex = /^[6-9]\d{9}$/;
-
-  if (!phoneRegex.test(phone.trim())) {
-    return res.status(400).json({
-      success: false,
-      message: "Please provide a valid 10-digit Indian phone number"
-    });
+    if (!phoneRegex.test(phone.trim())) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a valid 10-digit Indian phone number"
+      });
+    }
   }
 
   if (email) {

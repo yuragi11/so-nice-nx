@@ -30,7 +30,28 @@ app.use(
 app.use(express.json());
 
 // Serve static assets (product images, etc.)
-app.use("/assets", express.static(path.join(__dirname, "..", "public", "assets")));
+// Resolve the public/assets directory robustly across dev (ts-node) and prod (node dist)
+// builds, where __dirname differs and the public folder may not be copied into dist.
+function resolveAssetsDir(): string {
+  const candidates = [
+    path.join(__dirname, "public", "assets"), // prod: dist/src/public/assets (if copied)
+    path.join(__dirname, "..", "public", "assets"), // dev: backend/src/../public/assets
+    path.join(__dirname, "..", "..", "public", "assets"), // prod: dist/src/../../public/assets
+    path.join(process.cwd(), "public", "assets"), // cwd-based fallback
+  ];
+
+  const fs = require("fs");
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+
+  // Fallback: return the most likely path even if it doesn't exist yet
+  return candidates[candidates.length - 1];
+}
+
+app.use("/assets", express.static(resolveAssetsDir()));
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({
