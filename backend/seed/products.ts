@@ -67,7 +67,7 @@ const products = [
     gender: "Men",
     description: "Modern slim-fit denim for casual styling.",
     price: 1699,
-    image: "/assets/jeans1.jpg",
+    image: "/assets/denim3.jpg",
     featured: false,
     available: true
   },
@@ -89,7 +89,7 @@ const products = [
     gender: "Kids",
     description: "Colorful floral frock designed for girls.",
     price: 799,
-    image: "/assets/frock2.jpg",
+    image: "/assets/frock3.jpg",
     featured: true,
     available: true
   },
@@ -111,7 +111,7 @@ const products = [
     gender: "Unisex",
     description: "Classic denim jacket suitable for winter styling.",
     price: 1999,
-    image: "/assets/jacket3.jpg",
+    image: "/assets/jacket5.jpg",
     featured: true,
     available: true
   },
