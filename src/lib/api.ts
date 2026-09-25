@@ -11,8 +11,8 @@ export const queryClient = new QueryClient({
 
 // Backend API URL
 // In development, Vite proxy handles /api requests (no URL needed)
-// In production, set VITE_API_URL to your deployed backend URL
-const API_BASE = import.meta.env.VITE_API_URL || "";
+// In production, VITE_API_URL must be set (e.g. https://your-backend.onrender.com/api)
+const API_BASE = import.meta.env.VITE_API_URL || "https://so-nice-nx.onrender.com/api";
 
 export interface ApiProduct {
   _id: string;
