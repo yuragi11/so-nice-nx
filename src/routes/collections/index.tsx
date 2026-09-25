@@ -33,78 +33,6 @@ const staticProducts: ApiProduct[] = [
   { _id: "12", name: "Fur-Lined Winter Top", category: "Winter", subcategory: "Fur-lined Jackets", gender: "Unisex", description: "Warm fur-lined winter top for colder days.", price: 2299, image: "/assets/collection-winter.jpg", featured: true, available: true, createdAt: "", updatedAt: "" },
 ];
 
-function ProductsByCategory({ category }: { category: "Women" | "Men" | "Kids" | "Winter" }) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["products", category],
-    queryFn: () => productApi.getAll(category).then((r) => r.data),
-  });
-
-  // Use API data if available, otherwise fallback to static data
-  const products = data && data.length > 0 ? data : staticProducts.filter(p => p.category === category);
-
-  if (isLoading && !data) {
-    return (
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="h-64 animate-pulse bg-muted" />
-        ))}
-      </div>
-    );
-  }
-
-  if (products.length === 0) {
-    return (
-      <div className="flex items-center gap-2 py-8 text-muted-foreground">
-        <Package size={20} />
-        <span className="text-sm">No products available in this category yet.</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {products.map((product) => (
-        <ScaleIn key={product._id}>
-          <article className="group overflow-hidden border border-foreground/15">
-            <div className="relative overflow-hidden">
-              <img
-                src={product.image}
-                width={600}
-                height={800}
-                loading="lazy"
-                alt={product.name}
-                className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              {product.featured && (
-                <span className="absolute left-3 top-3 bg-primary px-2 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-primary-foreground">
-                  Featured
-                </span>
-              )}
-            </div>
-            <div className="p-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                {product.subcategory}
-              </p>
-              <h3 className="mt-1 font-display text-xl font-black">{product.name}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">
-                {product.description}
-              </p>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="font-display text-2xl font-black text-primary">
-                  ₹{product.price.toLocaleString("en-IN")}
-                </span>
-                <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.16em] text-primary">
-                  View <ArrowUpRight size={14} />
-                </span>
-              </div>
-            </div>
-          </article>
-        </ScaleIn>
-      ))}
-    </div>
-  );
-}
-
 export const Route = createFileRoute("/collections/")({
   head: () => ({
     meta: [
@@ -238,7 +166,7 @@ function CollectionCard({ item, index }: { item: (typeof collections)[0]; index:
 }
 
 function ProductsByCategory({ category }: { category: "Women" | "Men" | "Kids" | "Winter" }) {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["products", category],
     queryFn: () => productApi.getAll(category).then((r) => r.data),
   });
