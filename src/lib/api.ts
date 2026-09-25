@@ -9,10 +9,15 @@ export const queryClient = new QueryClient({
   },
 });
 
-// Backend URL
-// Local development: VITE_API_URL can be set in .env
-// Production: Vercel uses VITE_API_URL from Vercel Environment Variables
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+// Backend API URL
+// Vercel:
+// VITE_API_URL=https://so-nice-nx.onrender.com/api
+//
+// Local:
+// VITE_API_URL=http://localhost:5000/api
+
+const API_BASE =
+  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export interface ApiProduct {
   _id: string;
@@ -88,24 +93,24 @@ export const productApi = {
 
     const query = params.toString() ? `?${params.toString()}` : "";
 
-    return request<ApiProduct[]>(`/api/products${query}`);
+    return request<ApiProduct[]>(`/products${query}`);
   },
 
   getFeatured: () =>
-    request<ApiProduct[]>("/api/products/featured"),
+    request<ApiProduct[]>("/products/featured"),
 
   getById: (id: string) =>
-    request<ApiProduct>(`/api/products/${id}`),
+    request<ApiProduct>(`/products/${id}`),
 };
 
 export const contactApi = {
   submit: (data: ContactInput) =>
-    request<ApiContact>("/api/contact", {
+    request<ApiContact>("/contact", {
       method: "POST",
       body: JSON.stringify(data),
     }),
 };
 
 export const storeApi = {
-  get: () => request<unknown>("/api/store"),
+  get: () => request<unknown>("/store"),
 };
